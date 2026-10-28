@@ -1,0 +1,57 @@
+{
+    "compilerOptions": {
+        "target": "ES2025",
+        "lib": [
+            "dom",
+            "dom.iterable",
+            "esnext"
+        ],
+        "types": [
+          "node"
+        ],
+        "allowJs": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "verbatimModuleSyntax": true,
+        "noEmit": true,
+        "noUncheckedSideEffectImports": true,
+        "moduleDetection": "force",
+        "incremental": true,
+        "module": "esnext",
+        "esModuleInterop": true,
+        "moduleResolution": "bundler",
+        "resolveJsonModule": true,
+        "isolatedModules": true,
+        "jsx": "react-jsx",
+        "plugins": [
+            {
+                "name": "next"
+            }
+        ],
+
+        "noImplicitReturns": true,
+        "noImplicitOverride": true,
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "noImplicitAny": true,
+        "strictPropertyInitialization": true,
+        "noImplicitThis": true,
+        "paths": {
+            "@/styles/*": ["./styles/*"],
+            "@/components/*": ["./components/*"]
+        }
+    },
+    "include": [
+        "next-env.d.ts",
+        ".next/types/**/*.ts",
+        ".next/dev/types/**/*.ts",
+        "**/*.mts",
+        "**/*.ts",
+        "**/*.tsx",
+        "postcss.config.mjs",
+        "next.config.mjs",
+    ],
+    "exclude": [
+        "node_modules"
+    ]
+}
