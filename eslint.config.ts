@@ -22,6 +22,7 @@ export default defineConfig([
             "@stylistic/no-extra-semi": "error",
             "@stylistic/line-comment-position": ["error", { position: "above" }],
             "@stylistic/no-mixed-operators": "error",
+            "@stylistic/brace-style": ["warn", "1tbs"],
 
             "@stylistic/quotes": ["warn", "double"],
             "@stylistic/array-bracket-spacing": ["warn", "never", { singleValue: false }],
