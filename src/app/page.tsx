@@ -1,6 +1,6 @@
 import Infobox from "../components/Infobox";
 import Preview from "../components/Preview";
-import Scramble from "../components/Scamble";
+import Scramble from "../components/Scramble";
 import Stats from "../components/Stats";
 import Timer from "../components/Timer";
 import Times from "../components/Times";
