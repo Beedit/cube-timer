@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import GlassBox from "./GlassBox";
+import WhiteBox from "./WhiteBox";
 
 export default async function Times() {
     const times = await (await fetch("http://localhost:5000/solve/all")).json();
@@ -9,21 +10,23 @@ export default async function Times() {
     if (times.success == true && times.result) {
         for (const time of times.result) {
             timesList.push(
-                <div key={time.id}>
+                // placeholder
+                <WhiteBox key={time.id}>
                     [
                     {time.time}
                     ] [
-                    {time.id}
+                    {new Date(time.date).toLocaleDateString()}
                     ]
-                </div>,
+                </WhiteBox>,
             );
         }
     }
 
     return (
         <GlassBox>
-            Times:
-            {timesList}
+            <div className="grid grid-cols-1 gap-2 justify-items-center">
+                {timesList}
+            </div>
         </GlassBox>
     );
 }
