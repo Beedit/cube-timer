@@ -1,13 +1,14 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import GlassBox from "./GlassBox";
+
 export default function Timer() {
     const [isRunning, setRunning] = useState(false);
-    const [time, setTime] = useState(0);
+    const [localTime, setTime] = useState(0);
     const timeRef = useRef(0);
     const interval = useRef<NodeJS.Timeout>(undefined);
     const spaceTime = useRef(0);
-    const spaceStartTime = useRef(0);
+    const spaceStartTime = useRef(NaN);
 
     const startTimer = () => {
         setTime(0);
@@ -15,24 +16,19 @@ export default function Timer() {
         setRunning(true);
     };
 
-    const stopTimer = () => {
-        setRunning(false);
-    };
-
     const formatTimer = () => {
-        const minutes = Math.floor(time / 60000);
-        const seconds = ((time % 60000) / 1000).toFixed(0);
-        const milliseconds = (time % 60000) % 1000;
+        const minutes = Math.floor(localTime / 60000);
+        const seconds = ((localTime % 60000) / 1000).toFixed(0);
+        const milliseconds = (localTime % 60000) % 1000;
 
-        return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}.${milliseconds.toString().padStart(3, "0")}`;
+        return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}.${milliseconds.toString().padStart(3, "0").substring(0, 2)}`;
     };
 
     useEffect(() => {
-        console.log(isRunning);
         if (isRunning) {
             interval.current = setInterval(() => {
                 setTime(Date.now() - timeRef.current);
-            }, 10);
+            }, 1);
         }
 
         return () => {
@@ -43,17 +39,37 @@ export default function Timer() {
     useEffect(() => {
         document.addEventListener("keydown", (key) => {
             if (key.code == "Space") {
-                if (spaceStartTime.current == 0) {
+                if (Number.isNaN(spaceStartTime.current)) {
                     spaceStartTime.current = Date.now();
-                }
-
-                if (isRunning) {
-                    stopTimer();
                 }
                 spaceTime.current = Date.now() - spaceStartTime.current;
             }
         });
-    });
+    }, []);
+
+    useEffect(() => {
+        document.addEventListener("keydown", (key) => {
+            if (key.code == "Space") {
+                if (spaceTime.current > 500) {
+                    document.getElementById("timer")?.classList.remove("text-red-500");
+                    document.getElementById("timer")?.classList.add("text-emerald-700");
+                } else {
+                    document.getElementById("timer")?.classList.add("scale-90", "text-red-500");
+                }
+            }
+        });
+    }, []);
+
+    useEffect(() => {
+        document.addEventListener("keydown", (key) => {
+            if (key.repeat) {
+                return;
+            }
+            if (key.code == "Space" && isRunning) {
+                setRunning(false);
+            }
+        });
+    }, [isRunning]);
 
     useEffect(() => {
         document.addEventListener("keyup", (key) => {
@@ -63,15 +79,16 @@ export default function Timer() {
                     setRunning(false);
                     startTimer();
                 }
-                spaceStartTime.current = 0;
+                spaceStartTime.current = NaN;
                 spaceTime.current = 0;
+                document.getElementById("timer")?.classList.remove("scale-90", "text-red-500", "text-emerald-700");
             }
         });
-    });
+    }, []);
 
     return (
         <GlassBox>
-            <div className="timer">
+            <div className="text-8xl font-bold h-full flex items-center justify-center transition" id="timer">
                 {formatTimer()}
             </div>
         </GlassBox>
