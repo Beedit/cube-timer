@@ -1,9 +1,10 @@
+import cstimer from "cstimer_module";
 import GlassBox from "./GlassBox";
 
 export default function Scramble() {
     return (
         <GlassBox>
-            Scramble
+            {cstimer.getScramble("333")}
         </GlassBox>
     );
 }
