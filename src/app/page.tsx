@@ -13,10 +13,10 @@ export default function Page() {
             <div className="row-span-3 col-start-1 row-start-5"><Times /></div>
             <div className="row-span-3 col-start-1 row-start-1"><Stats /></div>
             <div className="col-span-3 row-span-3 col-start-3 row-start-3"><Timer /></div>
-            <div className="row-span-3 col-start-7 row-start-1"><Preview /></div>
+            <div className="row-span-3 col-start-7 row-start-1"><Widget /></div>
             <div className="row-span-3 col-start-7 row-start-5"><Infobox /></div>
             <div className="col-span-3 col-start-3 row-start-1"><Scramble /></div>
-            <div className="col-span-3 col-start-3 row-start-7"><Widget /></div>
+            <div className="col-span-3 col-start-3 row-start-7"><Preview /></div>
         </div>
 
     );
