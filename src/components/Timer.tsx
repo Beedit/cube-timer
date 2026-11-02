@@ -11,15 +11,22 @@ export default function Timer() {
     const spaceStartTime = useRef(NaN);
 
     const startTimer = () => {
+        spaceStartTime.current = NaN;
+        spaceTime.current = NaN;
+        setRunning(false);
         setTime(0);
         timeRef.current = Date.now();
         setRunning(true);
     };
 
-    const formatTimer = () => {
-        const minutes = Math.floor(localTime / 60000);
-        const seconds = ((localTime % 60000) / 1000).toFixed(0);
-        const milliseconds = (localTime % 60000) % 1000;
+    /**
+     * Formats the time when given in ms
+     * @returns Time formatted in MM:SS:MsMs
+     */
+    const formatTimer = (time: number) => {
+        const minutes = Math.floor(time / 60000);
+        const seconds = Math.floor((time % 60000) / 1000);
+        const milliseconds = (time % 60000) % 1000;
 
         return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}.${milliseconds.toString().padStart(3, "0").substring(0, 2)}`;
     };
@@ -28,7 +35,7 @@ export default function Timer() {
         if (isRunning) {
             interval.current = setInterval(() => {
                 setTime(Date.now() - timeRef.current);
-            }, 1);
+            }, 10);
         }
 
         return () => {
@@ -54,7 +61,7 @@ export default function Timer() {
                     document.getElementById("timer")?.classList.remove("text-red-500");
                     document.getElementById("timer")?.classList.add("text-emerald-700");
                 } else {
-                    document.getElementById("timer")?.classList.add("scale-90", "text-red-500");
+                    document.getElementById("timer")?.classList.add("scale-95", "text-red-500");
                 }
             }
         });
@@ -62,26 +69,22 @@ export default function Timer() {
 
     useEffect(() => {
         document.addEventListener("keydown", (key) => {
-            if (key.repeat) {
-                return;
-            }
-            if (key.code == "Space" && isRunning) {
+            if (key.code == "Space" && isRunning && !key.repeat) {
                 setRunning(false);
             }
-        });
+            return;
+        }, { once: true });
     }, [isRunning]);
 
     useEffect(() => {
         document.addEventListener("keyup", (key) => {
             if (key.code == "Space") {
                 if (spaceTime.current > 500) {
-                    setTime(0);
-                    setRunning(false);
                     startTimer();
                 }
                 spaceStartTime.current = NaN;
-                spaceTime.current = 0;
-                document.getElementById("timer")?.classList.remove("scale-90", "text-red-500", "text-emerald-700");
+                spaceTime.current = NaN;
+                document.getElementById("timer")?.classList.remove("scale-95", "text-red-500", "text-emerald-700");
             }
         });
     }, []);
@@ -89,7 +92,7 @@ export default function Timer() {
     return (
         <GlassBox>
             <div className="text-8xl font-bold h-full flex items-center justify-center transition" id="timer">
-                {formatTimer()}
+                {formatTimer(localTime)}
             </div>
         </GlassBox>
     );
