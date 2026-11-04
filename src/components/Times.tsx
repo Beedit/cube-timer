@@ -1,9 +1,10 @@
 import type { ReactNode } from "react";
 import GlassBox from "./GlassBox";
 import WhiteBox from "./WhiteBox";
+import { getAllTimes } from "../utils/dataHandler";
 
 export default async function Times() {
-    const times = await (await fetch("http://localhost:5000/solve/all")).json();
+    const times = await getAllTimes();
 
     const timesList: ReactNode[] = [];
 

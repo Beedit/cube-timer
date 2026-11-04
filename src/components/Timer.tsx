@@ -1,6 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import GlassBox from "./GlassBox";
+import { currentSolve } from "../utils/dataHandler";
 
 export default function Timer() {
     const [isRunning, setRunning] = useState(false);
@@ -22,8 +23,9 @@ export default function Timer() {
     };
 
     const stopTimer = useCallback(() => {
-        console.log(localTime);
         setRunning(false);
+        currentSolve.time = localTime;
+        currentSolve.submit();
     }, [localTime]);
 
     /**
@@ -51,18 +53,23 @@ export default function Timer() {
     }, [isRunning]);
 
     useEffect(() => {
-        document.addEventListener("keydown", (key) => {
+        const f = (key: KeyboardEvent) => {
             if (key.code == "Space" && !keyBindCheck) {
                 if (Number.isNaN(spaceStartTime.current)) {
                     spaceStartTime.current = Date.now();
                 }
                 spaceTime.current = Date.now() - spaceStartTime.current;
             }
-        });
+        };
+
+        document.addEventListener("keydown", f);
+        return () => {
+            document.removeEventListener("keydown", f);
+        };
     }, [keyBindCheck]);
 
     useEffect(() => {
-        document.addEventListener("keydown", (key) => {
+        const f = (key: KeyboardEvent) => {
             if (key.code == "Space" && !keyBindCheck) {
                 if (spaceTime.current > 500) {
                     document.getElementById("timer")?.classList.remove("text-red-500");
@@ -71,23 +78,35 @@ export default function Timer() {
                     document.getElementById("timer")?.classList.add("scale-95", "text-red-500");
                 }
             }
-        });
+        };
+
+        document.addEventListener("keydown", f);
+
+        return () => {
+            document.removeEventListener("keydown", f);
+        };
     }, [keyBindCheck]);
 
     useEffect(() => {
-        document.addEventListener("keydown", (key) => {
+        const f = (key: KeyboardEvent) => {
             if (key.code == "Space" && isRunning && !key.repeat) {
                 setKeyBindCheck(true);
                 stopTimer();
             }
             return;
-        }, { once: true });
+        };
+
+        document.addEventListener("keydown", f, { once: true });
+
+        return () => {
+            document.removeEventListener("keydown", f);
+        };
     }, [isRunning, stopTimer]);
 
     useEffect(() => {
-        document.addEventListener("keyup", (key) => {
-            setKeyBindCheck(false);
+        const f = (key: KeyboardEvent) => {
             if (key.code == "Space") {
+                setKeyBindCheck(false);
                 if (spaceTime.current > 500) {
                     startTimer();
                 }
@@ -95,7 +114,14 @@ export default function Timer() {
                 spaceTime.current = NaN;
                 document.getElementById("timer")?.classList.remove("scale-95", "text-red-500", "text-emerald-700");
             }
-        });
+            return;
+        };
+
+        document.addEventListener("keyup", f);
+
+        return () => {
+            document.removeEventListener("keyup", f);
+        };
     }, []);
 
     return (
