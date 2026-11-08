@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import type { ReactNode } from "react";
 import GlassBox from "./GlassBox";
 import WhiteBox from "./WhiteBox";
-import { getAllTimes } from "../utils/dataHandler";
 
 export default async function Times() {
-    const times = await getAllTimes();
+    const times: any = [];
+    // await getAllTimes();
 
     const timesList: ReactNode[] = [];
 

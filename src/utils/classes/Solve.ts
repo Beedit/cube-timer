@@ -1,5 +1,6 @@
 import axios from "axios";
 import { config } from "../config";
+import cstimer from "cstimer_module";
 
 class Solve {
     id?: number;
@@ -7,20 +8,26 @@ class Solve {
     time: number;
     date: number;
     puzzle: string;
+    category: string;
     scramble: string;
 
     dnf?: boolean;
     plusTwoCount?: number;
     note?: string;
 
-    constructor() {
+    constructor(category: string, puzzle: string) {
+        if (!cstimer.getScrambleTypes().includes(puzzle)) {
+            puzzle = "333";
+        }
         this.time = 0;
         this.date = 0;
-        this.puzzle = "";
-        this.scramble = "";
+        this.puzzle = puzzle;
+        this.category = category;
+        this.scramble = cstimer.getScramble(puzzle);
     }
 
-    submit() {
+    async submit() {
+        console.log("meow");
         axios.post(config.server + "/solve", {
             time: this.time,
             date: this.date,
@@ -36,7 +43,7 @@ class Solve {
         });
     }
 
-    setPlusTwo(count: number) {
+    async setPlusTwo(count: number) {
         this.plusTwoCount = count;
 
         axios.put(config.server + "/solve/plusTwo", {
@@ -48,7 +55,7 @@ class Solve {
         });
     }
 
-    setDnf(dnf: boolean) {
+    async setDnf(dnf: boolean) {
         this.dnf = dnf;
 
         axios.put(config.server + "/solve/dnf", {
@@ -60,7 +67,7 @@ class Solve {
         });
     }
 
-    setNote(note: string) {
+    async setNote(note: string) {
         this.note = note;
 
         axios.put(config.server + "/solve/note", {
@@ -72,7 +79,7 @@ class Solve {
         });
     }
 
-    setScramble(scramble: string) {
+    async setScramble(scramble: string) {
         this.scramble = scramble;
 
         axios.put(config.server + "/solve/scramble", {
@@ -84,7 +91,7 @@ class Solve {
         });
     }
 
-    deleteSolve() {
+    async deleteSolve() {
         axios.delete(config.server + "/solve", {
             data: {
                 id: this.id,

@@ -1,7 +1,7 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
 import GlassBox from "./GlassBox";
-import { currentSolve } from "../utils/dataHandler";
+import { data } from "../utils/data";
 
 export default function Timer() {
     const [isRunning, setRunning] = useState(false);
@@ -24,8 +24,8 @@ export default function Timer() {
 
     const stopTimer = useCallback(() => {
         setRunning(false);
-        currentSolve.time = localTime;
-        currentSolve.submit();
+        data.solve.time = localTime;
+        data.submit();
     }, [localTime]);
 
     /**
