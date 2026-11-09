@@ -25,7 +25,7 @@ export default function Timer() {
     const stopTimer = useCallback(() => {
         setRunning(false);
         data.solve.time = localTime;
-        data.submit();
+        data.submitSolve();
     }, [localTime]);
 
     /**
