@@ -1,15 +1,15 @@
 "use client";
 import { useContext } from "react";
 import GlassBox from "./GlassBox";
-import { CurrentContext } from "../utils/data";
-
+import { SolveData } from "../app/page";
 export default function Scramble() {
-    const context = useContext(CurrentContext);
+    const solve = useContext(SolveData);
+    const scramble = solve.scramble;
 
     return (
         <GlassBox>
-            <div className="text-2rem font-bold h-full flex items-center justify-center transition">
-                {context.solve.scramble}
+            <div className="text-[1.2vw] font-bold h-full flex items-center justify-center transition" suppressHydrationWarning>
+                {scramble}
             </div>
         </GlassBox>
     );

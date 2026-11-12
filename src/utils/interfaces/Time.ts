@@ -1,0 +1,34 @@
+/**
+ * Represents a row of the times database
+ */
+export interface Time {
+    id: number
+    time: number
+    dnf: boolean
+    plusTwo: number
+    date: number
+    scramble: string
+    note: string
+    category: string
+}
+
+/**
+ *
+ * @param check The object to check
+ * @returns Boolean of if the object implements Time
+ */
+// ESlint rule disabled because the point is literally to pass in any object of any type.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export const isTime = (check: any): check is Time => {
+    return (
+        check
+        && typeof check.id === "number"
+        && typeof check.time === "number"
+        && typeof check.dnf === "boolean"
+        && typeof check.plusTwo === "number"
+        && typeof check.date === "number"
+        && typeof check.scramble === "string"
+        && typeof check.note === "string"
+        && typeof check.category === "string"
+    );
+};

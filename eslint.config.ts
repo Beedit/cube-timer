@@ -17,7 +17,7 @@ export default defineConfig([
             "@stylistic": stylistic,
         },
         rules: {
-            "@stylistic/indent": ["error", 4],
+            "@stylistic/indent": ["warn", 4],
             "@stylistic/semi": ["error", "always"],
             "@stylistic/no-extra-semi": "error",
             "@stylistic/line-comment-position": ["error", { position: "above" }],

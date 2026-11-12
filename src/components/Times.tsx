@@ -1,33 +1,44 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import type { ReactNode } from "react";
+"use client";
+import { useEffect, useState, type ReactNode } from "react";
 import GlassBox from "./GlassBox";
 import WhiteBox from "./WhiteBox";
+import { getAllTimes } from "../utils/api";
+import { Status } from "../utils/enums/Status";
 
-export default async function Times() {
-    const times: any = [];
-    // await getAllTimes();
+export default function Times() {
+    const [children, setChildren] = useState<ReactNode[]>();
 
-    const timesList: ReactNode[] = [];
+    useEffect(() => {
+        const f = async () => {
+            const { status, result: times } = await getAllTimes();
+            if (status === Status.Success && Array.isArray(times)) {
+                const timesList: ReactNode[] = [];
+                for (const time of times) {
+                    timesList.push(
+                        // placeholder
+                        <WhiteBox key={time.id}>
+                            [
+                            {time.time}
+                            ] [
+                            {new Date(time.date).toLocaleDateString()}
+                            ]
+                        </WhiteBox>,
+                    );
+                }
+                setChildren(timesList.reverse());
+            }
+        };
 
-    if (times.success == true && times.result) {
-        for (const time of times.result) {
-            timesList.push(
-                // placeholder
-                <WhiteBox key={time.id}>
-                    [
-                    {time.time}
-                    ] [
-                    {new Date(time.date).toLocaleDateString()}
-                    ]
-                </WhiteBox>,
-            );
-        }
-    }
+        f();
+    }, []);
 
     return (
         <GlassBox>
+            <h1>
+                Solves
+            </h1>
             <div className="grid grid-cols-1 gap-2 justify-items-center">
-                {timesList}
+                {children}
             </div>
         </GlassBox>
     );

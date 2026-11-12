@@ -1,6 +1,6 @@
 "use client";
 
-export const getConfigHandler = async () => {
+const getConfigHandler = async () => {
     if (typeof window === "undefined") throw Error("Window not defined");
     const tauriPluginStore = await import("@tauri-apps/plugin-store");
     return await tauriPluginStore.load("config.json", { autoSave: true });

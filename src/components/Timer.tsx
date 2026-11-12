@@ -1,10 +1,12 @@
 "use client";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import GlassBox from "./GlassBox";
-import { CurrentContext } from "../utils/data";
+import { submit } from "../utils/api";
+import { SetSolveData, SolveData } from "../app/page";
 
 export default function Timer() {
-    const context = useContext(CurrentContext);
+    const solveData = useContext(SolveData);
+    const setSolveData = useContext(SetSolveData);
     const [isRunning, setRunning] = useState(false);
     const [keyBindCheck, setKeyBindCheck] = useState(false);
     const [localTime, setTime] = useState(0);
@@ -26,9 +28,17 @@ export default function Timer() {
 
     const stopTimer = useCallback(() => {
         setRunning(false);
-        context.setTime(localTime);
-        context.submitSolve();
-    }, [context, localTime]);
+        submit(localTime, Date.now(), solveData.category, solveData.scramble);
+        setSolveData({
+            type: "time",
+            data: localTime,
+        });
+        setSolveData({
+            type: "date",
+            data: Date.now(),
+        });
+        setSolveData({ type: "nextScramble" });
+    }, [localTime, solveData.category, solveData.scramble, setSolveData]);
 
     /**
      * Formats the time when given in ms
@@ -128,7 +138,7 @@ export default function Timer() {
 
     return (
         <GlassBox>
-            <div className="text-8xl font-bold h-full flex items-center justify-center transition" ref={timerElement}>
+            <div className="text-[6vw] font-bold h-full flex items-center justify-center transition" ref={timerElement}>
                 {formatTimer(localTime)}
             </div>
         </GlassBox>

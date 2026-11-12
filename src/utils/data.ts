@@ -1,52 +1,23 @@
 "use client";
-import axios from "axios";
-import { Solve } from "./classes/Solve";
-import { getConfigHandler, getSetting } from "./config";
-import type { Category } from "./interfaces/Category";
-import { createContext } from "react";
+import type { Solve } from "./interfaces/Solve";
+import type { Action } from "./interfaces/Action";
+import cstimer from "cstimer_module";
 
-export class Data {
-    solve: Solve;
-
-    constructor() {
-        this.solve = new Solve("", "333");
+const updateSolveData = (currentState: Solve, action: Action) => {
+    switch (action.type) {
+        case "time":
+            return { ...currentState, time: action.data as number };
+        case "date":
+            return { ...currentState, date: action.data as number };
+        case "scramble":
+            return { ...currentState, scramble: action.data as string };
+        case "category":
+            return { ...currentState, category: action.data as string };
+        case "puzzle":
+            return { ...currentState, puzzle: action.data as string };
+        case "nextScramble":
+            return { ...currentState, scramble: cstimer.getScramble(currentState.puzzle) };
     }
+};
 
-    submitSolve() {
-        this.solve.submit();
-        this.solve = new Solve(this.solve.category, this.solve.puzzle);
-    }
-
-    changeCategory(category: string, puzzle: string) {
-        this.solve = new Solve(category, puzzle);
-        console.log(this.solve.scramble);
-    }
-
-    async changeSetting(key: string, value: string) {
-        const dataHandler = await getConfigHandler();
-
-        await dataHandler.set(key, value);
-        await dataHandler.save();
-    }
-
-    async getSetting(key: string) {
-        return await getSetting(key);
-    }
-
-    async getCategories() {
-        const response = await axios.get(await this.getSetting("server") + "/category/all");
-
-        if (response.status == 200) {
-            return response.data.result as Category[];
-        }
-        return [];
-    }
-
-    setTime(time: number) {
-        this.solve.time = time;
-    }
-}
-
-export const data = new Data();
-
-export const CurrentContext = createContext<Data>(data);
+export { updateSolveData };
