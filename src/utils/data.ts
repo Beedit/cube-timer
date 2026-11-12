@@ -1,5 +1,7 @@
+import axios from "axios";
 import { Solve } from "./classes/Solve";
 import { getConfigHandler, getSetting } from "./config";
+import type { Category } from "./interfaces/Category";
 
 class Data {
     solve: Solve;
@@ -15,6 +17,7 @@ class Data {
 
     changeCategory(category: string, puzzle: string) {
         this.solve = new Solve(category, puzzle);
+        console.log(this.solve.scramble);
     }
 
     async changeSetting(key: string, value: string) {
@@ -26,6 +29,15 @@ class Data {
 
     async getSetting(key: string) {
         return await getSetting(key);
+    }
+
+    async getCategories() {
+        const response = await axios.get(await this.getSetting("server") + "/category/all");
+
+        if (response.status == 200) {
+            return response.data.result as Category[];
+        }
+        return [];
     }
 }
 

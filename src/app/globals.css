@@ -3,6 +3,8 @@
 @import "tailwindcss/preflight.css" layer(base);
 @import "tailwindcss/utilities.css" layer(utilities);
 
+@import "@heroui/styles"; 
+
 @layer base {
   a {
     scale: 1;

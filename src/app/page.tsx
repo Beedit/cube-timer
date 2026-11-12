@@ -5,6 +5,7 @@ import Settings from "../components/Settings";
 import Timer from "../components/Timer";
 import Times from "../components/Times";
 import Widget from "../components/Widget";
+import { data } from "../utils/data";
 import "./globals.css";
 
 export default async function Page() {
@@ -16,7 +17,7 @@ export default async function Page() {
             <div className="col-span-3 row-span-3 col-start-3 row-start-3"><Timer /></div>
             <div className="row-span-3 col-start-7 row-start-1"><Widget /></div>
             <div className="row-span-3 col-start-1 row-start-1"><Infobox /></div>
-            <div className="col-span-3 col-start-3 row-start-1"><Scramble /></div>
+            <div className="col-span-3 col-start-3 row-start-1"><Scramble scramble={data.solve.scramble} /></div>
             <div className="col-span-3 col-start-3 row-start-7"><Preview /></div>
         </div>
 

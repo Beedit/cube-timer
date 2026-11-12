@@ -27,7 +27,6 @@ class Solve {
     }
 
     async submit() {
-        console.log("meow");
         axios.post(await getSetting("server") + "/solve", {
             time: this.time,
             date: this.date,

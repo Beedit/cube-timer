@@ -6,6 +6,7 @@ import WhiteBox from "./WhiteBox";
 import Modal from "react-modal";
 import { data } from "../utils/data";
 import { getSetting } from "../utils/config";
+import CategoryDropdown from "./CategoryDropdown";
 
 const customStyle = {
     overlay: {
@@ -20,8 +21,9 @@ export default function Settings() {
 
     const getSettings = async () => {
         const serverAddress = await getSetting("server");
+        const lmao = await data.getCategories();
 
-        console.log(serverAddress);
+        console.log(lmao);
 
         if (typeof serverAddress === "string") {
             setServerContent(serverAddress);
@@ -48,6 +50,9 @@ export default function Settings() {
                     Open Settings
                 </WhiteBox>
             </button>
+            <br />
+            <CategoryDropdown />
+
             <Modal isOpen={isOpen} onRequestClose={closeModal} className="bg-transparent" style={customStyle} appElement={undefined}>
                 <div className="h-full flex items-center justify-center">
                     <div className="w-9/10 p-4">
