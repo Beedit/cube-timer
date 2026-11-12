@@ -1,6 +1,7 @@
 import { Dropdown, Label } from "@heroui/react";
 import { data } from "../utils/data";
 import { useState, type ReactNode } from "react";
+import WhiteBox from "./WhiteBox";
 
 export default function CategoryDropdown() {
     const [children, setChildren] = useState<ReactNode[]>();
@@ -30,7 +31,9 @@ export default function CategoryDropdown() {
         }}
         >
             <Dropdown.Trigger>
-                Categories
+                <WhiteBox>
+                    Categories
+                </WhiteBox>
             </Dropdown.Trigger>
             <Dropdown.Popover>
                 <Dropdown.Menu>

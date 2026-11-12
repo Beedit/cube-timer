@@ -11,6 +11,7 @@ export default function Timer() {
     const interval = useRef<NodeJS.Timeout>(undefined);
     const spaceTime = useRef(0);
     const spaceStartTime = useRef(NaN);
+    const timerElement = useRef<HTMLDivElement>(null);
 
     const startTimer = () => {
         console.log("starting");
@@ -72,10 +73,10 @@ export default function Timer() {
         const f = (key: KeyboardEvent) => {
             if (key.code == "Space" && !keyBindCheck) {
                 if (spaceTime.current > 500) {
-                    document.getElementById("timer")?.classList.remove("text-red-500");
-                    document.getElementById("timer")?.classList.add("text-emerald-700");
+                    timerElement.current!.classList.remove("text-red-500");
+                    timerElement.current!.classList.add("text-emerald-700");
                 } else {
-                    document.getElementById("timer")?.classList.add("scale-95", "text-red-500");
+                    timerElement.current!.classList.add("scale-95", "text-red-500");
                 }
             }
         };
@@ -112,7 +113,7 @@ export default function Timer() {
                 }
                 spaceStartTime.current = NaN;
                 spaceTime.current = NaN;
-                document.getElementById("timer")?.classList.remove("scale-95", "text-red-500", "text-emerald-700");
+                timerElement.current!.classList.remove("scale-95", "text-red-500", "text-emerald-700");
             }
             return;
         };
@@ -126,7 +127,7 @@ export default function Timer() {
 
     return (
         <GlassBox>
-            <div className="text-8xl font-bold h-full flex items-center justify-center transition" id="timer">
+            <div className="text-8xl font-bold h-full flex items-center justify-center transition" ref={timerElement}>
                 {formatTimer(localTime)}
             </div>
         </GlassBox>
