@@ -5,21 +5,22 @@ import Settings from "../components/Settings";
 import Timer from "../components/Timer";
 import Times from "../components/Times";
 import Widget from "../components/Widget";
-import { data } from "../utils/data";
 import "./globals.css";
+import { CurrentContext, data } from "../utils/data";
 
 export default async function Page() {
     // console.log("Server is compatible. Client api version: {config.apiVersion}");
     return (
-        <div className="grid grid-cols-7 grid-rows-7 gap-5 w-screen h-screen p-7.5">
-            <div className="row-span-3 col-start-1 row-start-5"><Times /></div>
-            <div className="row-span-3 col-start-7 row-start-5"><Settings /></div>
-            <div className="col-span-3 row-span-3 col-start-3 row-start-3"><Timer /></div>
-            <div className="row-span-3 col-start-7 row-start-1"><Widget /></div>
-            <div className="row-span-3 col-start-1 row-start-1"><Infobox /></div>
-            <div className="col-span-3 col-start-3 row-start-1"><Scramble scramble={data.solve.scramble} /></div>
-            <div className="col-span-3 col-start-3 row-start-7"><Preview /></div>
-        </div>
-
+        <CurrentContext value={data}>
+            <div className="grid grid-cols-7 grid-rows-7 gap-5 w-screen h-screen p-7.5">
+                <div className="row-span-3 col-start-1 row-start-5"><Times /></div>
+                <div className="row-span-3 col-start-7 row-start-5"><Settings /></div>
+                <div className="col-span-3 row-span-3 col-start-3 row-start-3"><Timer /></div>
+                <div className="row-span-3 col-start-7 row-start-1"><Widget /></div>
+                <div className="row-span-3 col-start-1 row-start-1"><Infobox /></div>
+                <div className="col-span-3 col-start-3 row-start-1"><Scramble /></div>
+                <div className="col-span-3 col-start-3 row-start-7"><Preview /></div>
+            </div>
+        </CurrentContext>
     );
 }

@@ -1,18 +1,19 @@
 import { Dropdown, Label } from "@heroui/react";
-import { data } from "../utils/data";
-import { useState, type ReactNode } from "react";
+import { CurrentContext } from "../utils/data";
+import { useContext, useState, type ReactNode } from "react";
 import WhiteBox from "./WhiteBox";
 
 export default function CategoryDropdown() {
+    const context = useContext(CurrentContext);
     const [children, setChildren] = useState<ReactNode[]>();
 
     const f = async () => {
         const children: ReactNode[] = [];
-        const categories = await data.getCategories();
+        const categories = await context.getCategories();
 
         categories.forEach((category) => {
             children.push(
-                <Dropdown.Item key={category.categoryName}>
+                <Dropdown.Item key={category.categoryName} onAction={() => context.changeCategory(category.categoryName, category.puzzleType)}>
                     <Label>
                         {category.categoryName}
                     </Label>

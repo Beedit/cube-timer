@@ -1,9 +1,10 @@
 "use client";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import GlassBox from "./GlassBox";
-import { data } from "../utils/data";
+import { CurrentContext } from "../utils/data";
 
 export default function Timer() {
+    const context = useContext(CurrentContext);
     const [isRunning, setRunning] = useState(false);
     const [keyBindCheck, setKeyBindCheck] = useState(false);
     const [localTime, setTime] = useState(0);
@@ -25,9 +26,9 @@ export default function Timer() {
 
     const stopTimer = useCallback(() => {
         setRunning(false);
-        data.solve.time = localTime;
-        data.submitSolve();
-    }, [localTime]);
+        context.setTime(localTime);
+        context.submitSolve();
+    }, [context, localTime]);
 
     /**
      * Formats the time when given in ms

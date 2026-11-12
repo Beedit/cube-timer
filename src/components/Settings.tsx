@@ -1,12 +1,12 @@
 "use client";
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import GlassBox from "./GlassBox";
 import Input from "./Input";
 import WhiteBox from "./WhiteBox";
 import Modal from "react-modal";
-import { data } from "../utils/data";
 import { getSetting } from "../utils/config";
 import CategoryDropdown from "./CategoryDropdown";
+import { CurrentContext } from "../utils/data";
 
 const customStyle = {
     overlay: {
@@ -15,13 +15,14 @@ const customStyle = {
 };
 
 export default function Settings() {
+    const context = useContext(CurrentContext);
     const [isOpen, setOpen] = useState(false);
     const [serverContent, setServerContent] = useState("");
     const server = useRef<HTMLInputElement>(null);
 
     const getSettings = async () => {
         const serverAddress = await getSetting("server");
-        const lmao = await data.getCategories();
+        const lmao = await context.getCategories();
 
         console.log(lmao);
 
@@ -36,7 +37,7 @@ export default function Settings() {
 
     function closeModal() {
         setOpen(false);
-        data.changeSetting("server", server.current?.value ?? "https://localhost:5000");
+        context.changeSetting("server", server.current?.value ?? "https://localhost:5000");
     }
 
     return (

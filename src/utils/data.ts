@@ -1,13 +1,15 @@
+"use client";
 import axios from "axios";
 import { Solve } from "./classes/Solve";
 import { getConfigHandler, getSetting } from "./config";
 import type { Category } from "./interfaces/Category";
+import { createContext } from "react";
 
-class Data {
+export class Data {
     solve: Solve;
 
     constructor() {
-        this.solve = new Solve("", "");
+        this.solve = new Solve("", "333");
     }
 
     submitSolve() {
@@ -39,6 +41,12 @@ class Data {
         }
         return [];
     }
+
+    setTime(time: number) {
+        this.solve.time = time;
+    }
 }
 
 export const data = new Data();
+
+export const CurrentContext = createContext<Data>(data);
