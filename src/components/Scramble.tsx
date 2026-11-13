@@ -1,10 +1,22 @@
 "use client";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import GlassBox from "./GlassBox";
-import { SolveData } from "../app/page";
+import { SetSolveData, SolveData } from "../app/page";
+import { getSetting } from "../utils/config";
 export default function Scramble() {
     const solve = useContext(SolveData);
+    const editSolveData = useContext(SetSolveData);
     const scramble = solve.scramble;
+
+    useEffect(() => {
+        const f = async () => {
+            editSolveData({ type: "category", data: await getSetting("lastCategory") as string });
+            editSolveData({ type: "puzzle", data: await getSetting("lastPuzzle") as string });
+            editSolveData({ type: "nextScramble" });
+        };
+
+        f();
+    }, [editSolveData]);
 
     return (
         <GlassBox>

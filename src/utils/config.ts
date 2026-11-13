@@ -1,9 +1,15 @@
 "use client";
 
+const defaults = {
+    server: "http://localhost:5000",
+    lastCategory: "3x3x3",
+    lastPuzzle: "333",
+};
+
 const getConfigHandler = async () => {
     if (typeof window === "undefined") throw Error("Window not defined");
     const tauriPluginStore = await import("@tauri-apps/plugin-store");
-    return await tauriPluginStore.load("config.json", { autoSave: true });
+    return await tauriPluginStore.load("config.json", { autoSave: true, defaults: defaults });
 };
 
 export const updateSetting = async (key: string, value: string) => {
