@@ -5,7 +5,7 @@ import WhiteBox from "./WhiteBox";
 import { getAllTimes } from "../utils/api";
 import { Status } from "../utils/enums/Status";
 
-export default function Times() {
+export default function Solves() {
     const [children, setChildren] = useState<ReactNode[]>();
 
     useEffect(() => {

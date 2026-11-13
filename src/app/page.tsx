@@ -4,13 +4,13 @@ import Preview from "../components/Preview";
 import Scramble from "../components/Scramble";
 import Settings from "../components/Settings";
 import Timer from "../components/Timer";
-import Times from "../components/Times";
 import Widget from "../components/Widget";
 import "./globals.css";
 import type { Solve } from "../utils/interfaces/Solve";
 import { createContext, useReducer, type ActionDispatch } from "react";
 import { updateSolveData } from "../utils/data";
 import type { Action } from "../utils/interfaces/Action";
+import Solves from "../components/Solves";
 
 export const SolveData = createContext<Solve>({
     time: 0,
@@ -35,7 +35,7 @@ export default function Page() {
         <SolveData value={currentSolveData}>
             <SetSolveData value={setSolveData}>
                 <div className="grid grid-cols-7 grid-rows-7 gap-5 w-screen h-screen p-7.5">
-                    <div className="row-span-3 col-start-1 row-start-5"><Times /></div>
+                    <div className="row-span-3 col-start-1 row-start-5"><Solves /></div>
                     <div className="row-span-3 col-start-7 row-start-5"><Settings /></div>
                     <div className="col-span-3 row-span-3 col-start-3 row-start-3"><Timer /></div>
                     <div className="row-span-3 col-start-7 row-start-1"><Widget /></div>
