@@ -5,6 +5,7 @@
   "license": "MPL-2.0",
   "author": "Pip",
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^7.3.1",
     "@fortawesome/fontawesome-svg-core": "^7.3.1",
     "@fortawesome/free-brands-svg-icons": "^7.3.1",
     "@fortawesome/free-solid-svg-icons": "^7.3.1",
@@ -13,6 +14,7 @@
     "@heroui/styles": "^3.2.7",
     "@heroui/use-disclosure": "^2.2.19",
     "@tailwindcss/postcss": "^4.3.5",
+    "@tauri-apps/plugin-opener": "^2.7.3",
     "@tauri-apps/plugin-store": "^2.5.0",
     "axios": "^1.21.0",
     "cstimer_module": "^0.1.5",
@@ -20,7 +22,6 @@
     "postcss": "^8.5.32",
     "react": "^19.3.0",
     "react-hotkeys-hook": "^5.3.3",
-    "react-modal": "^3.16.3",
     "tailwindcss": "^4.3.5"
   },
   "scripts": {
@@ -37,7 +38,6 @@
     "@stylistic/eslint-plugin": "^5.10.0",
     "@types/node": "^26.6.5",
     "@types/react": "19.3.0",
-    "@types/react-modal": "^3.16.3",
     "@typescript/native": "npm:typescript@^7.0.2",
     "eslint": "^10.12.0",
     "eslint-config-next": "^16.4.0",

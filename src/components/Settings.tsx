@@ -1,22 +1,22 @@
 "use client";
 import { useRef, useState } from "react";
 import GlassBox from "./GlassBox";
-import Input from "./Input";
 import WhiteBox from "./WhiteBox";
-import Modal from "react-modal";
 import { getSetting, updateSetting } from "../utils/config";
-import CategoryDropdown from "./CategoryDropdown";
-// import { CurrentContext } from "../utils/data";
-
-const customStyle = {
-    overlay: {
-        backgroundColor: "rgba(63, 63, 63, 0.83)",
-    },
-};
+import CategoryDropdown from "./menus/CategoryDropdown";
+import { useOverlayState } from "@heroui/react";
+import { SettingsModal } from "./menus/SettingsModal";
+import { AboutModal } from "./menus/AboutModal";
 
 export default function Settings() {
-    // const context = useContext(CurrentContext);
-    const [isOpen, setOpen] = useState(false);
+    const settingsModalState = useOverlayState({
+        onOpenChange: (isOpen) => {
+            if (!isOpen) {
+                closeSettingsModal();
+            }
+        },
+    });
+    const aboutModalState = useOverlayState();
     const [serverContent, setServerContent] = useState("");
     const server = useRef<HTMLInputElement>(null);
 
@@ -28,13 +28,11 @@ export default function Settings() {
         }
     };
 
-    async function openModal() {
-        getSettings();
-        setOpen(true);
+    async function openSettingsModal() {
+        await getSettings();
     }
 
-    function closeModal() {
-        setOpen(false);
+    function closeSettingsModal() {
         updateSetting("server", server.current?.value ?? "https://localhost:5000");
     }
 
@@ -42,34 +40,27 @@ export default function Settings() {
         <GlassBox>
             <div className="grid grid-cols-1 gap-2 justify-items-center">
                 <button onClick={async () => {
-                    await openModal();
+                    await openSettingsModal();
+                    settingsModalState.setOpen(true);
                 }}
                 >
                     <WhiteBox>
-                        Open Settings
+                        Settings
+                    </WhiteBox>
+                </button>
+                <button onClick={async () => {
+                    aboutModalState.setOpen(true);
+                }}
+                >
+                    <WhiteBox>
+                        About
                     </WhiteBox>
                 </button>
                 <br />
                 <CategoryDropdown />
             </div>
-            <Modal isOpen={isOpen} onRequestClose={closeModal} className="bg-transparent" style={customStyle} appElement={undefined}>
-                <div className="h-full flex items-center justify-center">
-                    <div className="w-9/10 p-4">
-                        <WhiteBox>
-                            <div className="p-4">
-                                <button onClick={closeModal}>
-                                    <WhiteBox>
-                                        Close Settings
-                                    </WhiteBox>
-                                </button>
-                                <br />
-                                Server address:
-                                <Input placeholderText="https://localhost:5000" ref={server} value={serverContent} />
-                            </div>
-                        </WhiteBox>
-                    </div>
-                </div>
-            </Modal>
+            <SettingsModal modalState={settingsModalState} server={server} serverContent={serverContent} />
+            <AboutModal modalState={aboutModalState} />
         </GlassBox>
     );
 }
