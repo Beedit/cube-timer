@@ -1,15 +1,9 @@
-/**
- * Represents a row of the times database
- */
 export interface Time {
-    id: number
     time: number
-    dnf: boolean
-    plusTwo: number
     date: number
     scramble: string
-    note: string
     category: string
+    puzzle: string
 }
 
 /**
@@ -22,13 +16,10 @@ export interface Time {
 export const isTime = (check: any): check is Time => {
     return (
         check
-        && typeof check.id === "number"
         && typeof check.time === "number"
-        && typeof check.dnf === "boolean"
-        && typeof check.plusTwo === "number"
         && typeof check.date === "number"
         && typeof check.scramble === "string"
-        && typeof check.note === "string"
         && typeof check.category === "string"
+        && typeof check.puzzle === "string"
     );
 };

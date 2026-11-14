@@ -1,9 +1,13 @@
 "use client";
 
+import type { Category } from "./interfaces/Category";
+
 const defaults = {
     server: "http://localhost:5000",
-    lastCategory: "3x3x3",
-    lastPuzzle: "333",
+    defaultCategory: {
+        categoryName: "3x3x3",
+        puzzleType: "333",
+    },
 };
 
 const getConfigHandler = async () => {
@@ -12,7 +16,7 @@ const getConfigHandler = async () => {
     return await tauriPluginStore.load("config.json", { autoSave: true, defaults: defaults });
 };
 
-export const updateSetting = async (key: string, value: string) => {
+export const updateSetting = async (key: string, value: string | Category) => {
     const configHandler = await getConfigHandler();
 
     await configHandler.set(key, value);

@@ -3,10 +3,9 @@
 import axios from "axios";
 import { getSetting } from "./config";
 import type { Result } from "./interfaces/Result";
-import type { Response } from "./interfaces/Response";
 import { Status } from "./enums/Status";
-import type { Time } from "./interfaces/Time";
 import type { Category } from "./interfaces/Category";
+import type { Solve } from "./interfaces/Solve";
 
 const submit = async (time: number, date: number, category: string, scramble: string) => {
     let res: Result = {
@@ -89,7 +88,7 @@ const getAllTimes = async () => {
     if (response.status == 200) {
         return {
             status: Status.Success,
-            result: response.data.result as Time[],
+            result: response.data.result as Solve[],
         } as Result;
     }
     return {
@@ -111,22 +110,4 @@ const getAllCategories = async () => {
     } as Result;
 };
 
-const getCategoryPuzzle = async (categoryName: string) => {
-    const response = await axios.get(await getSetting("server") + "/category/all") as Response;
-    const final = {
-        status: Status.Fail,
-    } as Result;
-
-    if (response.success && Array.isArray(response.result)) {
-        response.result.forEach((category: { categoryName: string, puzzle: string }) => {
-            if (category.categoryName == categoryName) {
-                final.result = category.puzzle;
-                final.status = Status.Success;
-            }
-        });
-    }
-
-    return final;
-};
-
-export { submit, setPlusTwo, setDnf, setNote, setScramble, deleteSolve, getAllTimes, getCategoryPuzzle, getAllCategories };
+export { submit, setPlusTwo, setDnf, setNote, setScramble, deleteSolve, getAllTimes, getAllCategories };

@@ -1,6 +1,7 @@
 import { Input, Modal, type UseOverlayStateReturn } from "@heroui/react";
 import { CogIcon } from "../icons/icons";
 import type { RefObject } from "react";
+import DefaultCategoryDropdown from "./DefaultCategoryDropdown";
 
 export const SettingsModal = ({ modalState, server, serverContent }: { modalState: UseOverlayStateReturn, server: RefObject<HTMLInputElement | null>, serverContent: string }) => {
     return (
@@ -17,6 +18,8 @@ export const SettingsModal = ({ modalState, server, serverContent }: { modalStat
                         </Modal.Header>
                         <Modal.Body>
                             <Input placeholder="https://localhost:5000" ref={server} defaultValue={serverContent}></Input>
+                            <br />
+                            <DefaultCategoryDropdown />
                         </Modal.Body>
                         <Modal.Footer />
                     </Modal.Dialog>

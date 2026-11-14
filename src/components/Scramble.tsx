@@ -3,6 +3,7 @@ import { useContext, useEffect } from "react";
 import GlassBox from "./GlassBox";
 import { SetSolveData, SolveData } from "../app/page";
 import { getSetting } from "../utils/config";
+import type { Category } from "../utils/interfaces/Category";
 export default function Scramble() {
     const solve = useContext(SolveData);
     const editSolveData = useContext(SetSolveData);
@@ -10,8 +11,7 @@ export default function Scramble() {
 
     useEffect(() => {
         const f = async () => {
-            editSolveData({ type: "category", data: await getSetting("lastCategory") as string });
-            editSolveData({ type: "puzzle", data: await getSetting("lastPuzzle") as string });
+            editSolveData({ type: "category", data: await getSetting("defaultCategory") as Category });
             editSolveData({ type: "nextScramble" });
         };
 

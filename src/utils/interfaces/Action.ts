@@ -1,4 +1,6 @@
+import type { Category } from "./Category";
+
 export interface Action {
-    type: "time" | "date" | "scramble" | "category" | "puzzle" | "nextScramble"
-    data?: number | string
+    type: "time" | "date" | "scramble" | "category" | "nextScramble"
+    data?: number | string | Category
 }

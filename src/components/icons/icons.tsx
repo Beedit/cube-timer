@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faCogs, faArrowUpRightFromSquare, faOtter } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faCogs, faArrowUpRightFromSquare, faOtter, faTableCells } from "@fortawesome/free-solid-svg-icons";
 
 const iconClasses = "px-1";
 const iconStyle = {
@@ -26,4 +26,8 @@ const OtterIcon = () => {
     return <FontAwesomeIcon icon={faOtter} bounce widthAuto style={iconStyle} size="2xl" />;
 };
 
-export { HeartIcon, CogIcon, LinkIcon, OtterIcon };
+const ThreeCubeIcon = () => {
+    return <FontAwesomeIcon icon={faTableCells} bounce widthAuto style={iconStyle} />;
+};
+
+export { HeartIcon, CogIcon, LinkIcon, OtterIcon, ThreeCubeIcon };

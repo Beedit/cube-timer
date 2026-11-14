@@ -6,29 +6,25 @@ import Settings from "../components/Settings";
 import Timer from "../components/Timer";
 import Widget from "../components/Widget";
 import "./globals.css";
-import type { Solve } from "../utils/interfaces/Solve";
 import { createContext, useReducer, type ActionDispatch } from "react";
 import { updateSolveData } from "../utils/data";
 import type { Action } from "../utils/interfaces/Action";
 import Solves from "../components/Solves";
+import type { Time } from "../utils/interfaces/Time";
 
-export const SolveData = createContext<Solve>({
+const time = {
     time: 0,
     date: 0,
     scramble: "",
     category: "",
     puzzle: "",
-});
+};
+
+export const SolveData = createContext<Time>(time);
 export const SetSolveData = createContext<ActionDispatch<[action: Action]>>(() => {});
 
 export default function Page() {
-    const [currentSolveData, setSolveData] = useReducer(updateSolveData, {
-        time: 0,
-        date: 0,
-        scramble: "",
-        category: "",
-        puzzle: "",
-    });
+    const [currentSolveData, setSolveData] = useReducer(updateSolveData, time);
 
     // console.log("Server is compatible. Client api version: {config.apiVersion}");
     return (

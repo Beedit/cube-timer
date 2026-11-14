@@ -1,10 +1,9 @@
 "use client";
 import { useRef, useState } from "react";
 import GlassBox from "./GlassBox";
-import WhiteBox from "./WhiteBox";
 import { getSetting, updateSetting } from "../utils/config";
 import CategoryDropdown from "./menus/CategoryDropdown";
-import { useOverlayState } from "@heroui/react";
+import { Button, useOverlayState } from "@heroui/react";
 import { SettingsModal } from "./menus/SettingsModal";
 import { AboutModal } from "./menus/AboutModal";
 
@@ -39,25 +38,24 @@ export default function Settings() {
     return (
         <GlassBox>
             <div className="grid grid-cols-1 gap-2 justify-items-center">
-                <button onClick={async () => {
-                    await openSettingsModal();
-                    settingsModalState.setOpen(true);
-                }}
-                >
-                    <WhiteBox>
-                        Settings
-                    </WhiteBox>
-                </button>
-                <button onClick={async () => {
-                    aboutModalState.setOpen(true);
-                }}
-                >
-                    <WhiteBox>
-                        About
-                    </WhiteBox>
-                </button>
-                <br />
                 <CategoryDropdown />
+                <Button
+                    onClick={async () => {
+                        await openSettingsModal();
+                        settingsModalState.setOpen(true);
+                    }}
+                    fullWidth
+                >
+                    Settings
+                </Button>
+                <Button
+                    onClick={async () => {
+                        aboutModalState.setOpen(true);
+                    }}
+                    fullWidth
+                >
+                    About
+                </Button>
             </div>
             <SettingsModal modalState={settingsModalState} server={server} serverContent={serverContent} />
             <AboutModal modalState={aboutModalState} />

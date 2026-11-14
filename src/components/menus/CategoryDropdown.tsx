@@ -1,5 +1,5 @@
 "use client";
-import { Dropdown, Header, Label, useOverlayState } from "@heroui/react";
+import { Button, Dropdown, Header, Label, useOverlayState } from "@heroui/react";
 import { useContext, useState, type ReactNode } from "react";
 import WhiteBox from "../WhiteBox";
 import { getAllCategories } from "../../utils/api";
@@ -9,13 +9,12 @@ import { SetSolveData } from "../../app/page";
 import { ManageCategoriesModal } from "./ManageCategoriesModal";
 
 export default function CategoryDropdown() {
-    const modalDisclosure = useOverlayState();
+    const modalState = useOverlayState();
     const [children, setChildren] = useState<ReactNode[]>();
     const setSolveData = useContext(SetSolveData);
 
     const onItemOpen = (category: Category) => {
-        setSolveData({ type: "category", data: category.categoryName });
-        setSolveData({ type: "puzzle", data: category.puzzleType });
+        setSolveData({ type: "category", data: category });
         setSolveData({ type: "nextScramble" });
     };
 
@@ -46,11 +45,9 @@ export default function CategoryDropdown() {
                 }
             }}
             >
-                <Dropdown.Trigger>
-                    <WhiteBox>
-                        Categories
-                    </WhiteBox>
-                </Dropdown.Trigger>
+                <Button fullWidth>
+                    Categories
+                </Button>
                 <Dropdown.Popover>
                     <Dropdown.Menu>
                         <Dropdown.Section>
@@ -59,7 +56,7 @@ export default function CategoryDropdown() {
                         </Dropdown.Section>
                         <Dropdown.Section>
                             <Header>Manage</Header>
-                            <Dropdown.Item key="manageCategories" onAction={() => modalDisclosure.setOpen(true)}>
+                            <Dropdown.Item key="manageCategories" onAction={() => modalState.setOpen(true)}>
                                 <Label>
                                     Manage Categories
                                 </Label>
@@ -69,7 +66,7 @@ export default function CategoryDropdown() {
                 </Dropdown.Popover>
             </Dropdown>
 
-            <ManageCategoriesModal disclosure={modalDisclosure} />
+            <ManageCategoriesModal disclosure={modalState} />
         </>
     );
 }
