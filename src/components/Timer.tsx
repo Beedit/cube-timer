@@ -3,6 +3,7 @@ import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import GlassBox from "./GlassBox";
 import { submit } from "../utils/api";
 import { SetSolveData, SolveData } from "../app/page";
+import { formatTimer } from "../utils/data";
 
 export default function Timer() {
     const solveData = useContext(SolveData);
@@ -40,23 +41,11 @@ export default function Timer() {
         setSolveData({ type: "nextScramble" });
     }, [localTime, solveData.category, solveData.scramble, setSolveData]);
 
-    /**
-     * Formats the time when given in ms
-     * @returns Time formatted in MM:SS:MsMs
-     */
-    const formatTimer = (time: number) => {
-        const minutes = Math.floor(time / 60000);
-        const seconds = Math.floor((time % 60000) / 1000);
-        const milliseconds = (time % 60000) % 1000;
-
-        return `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}.${milliseconds.toString().padStart(3, "0").substring(0, 2)}`;
-    };
-
     useEffect(() => {
         if (isRunning) {
             interval.current = setInterval(() => {
                 setTime(Date.now() - timeRef.current);
-            }, 10);
+            }, 100);
         }
 
         return () => {
