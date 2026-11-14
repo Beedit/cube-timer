@@ -28,6 +28,8 @@ export default defineConfig([
             "@stylistic/array-bracket-spacing": ["warn", "never", { singleValue: false }],
             "@stylistic/semi-style": ["warn", "last"],
             "prefer-const": ["error", { destructuring: "all" }],
+
+            "@stylistic/jsx-indent-props": "off",
         },
         extends: ["js/recommended"],
         languageOptions: {
