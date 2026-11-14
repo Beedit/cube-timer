@@ -8,6 +8,7 @@ const defaults = {
         categoryName: "3x3x3",
         puzzleType: "333",
     },
+    theme: "system",
 };
 
 const getConfigHandler = async () => {

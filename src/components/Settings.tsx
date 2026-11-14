@@ -6,6 +6,7 @@ import CategoryDropdown from "./menus/CategoryDropdown";
 import { Button, useOverlayState } from "@heroui/react";
 import { SettingsModal } from "./menus/SettingsModal";
 import { AboutModal } from "./menus/AboutModal";
+import { BarsIcon, CogIcon } from "./icons/icons";
 
 export default function Settings() {
     const settingsModalState = useOverlayState({
@@ -47,6 +48,7 @@ export default function Settings() {
                     fullWidth
                 >
                     Settings
+                    <CogIcon text={true} />
                 </Button>
                 <Button
                     onClick={async () => {
@@ -55,6 +57,7 @@ export default function Settings() {
                     fullWidth
                 >
                     About
+                    <BarsIcon />
                 </Button>
             </div>
             <SettingsModal modalState={settingsModalState} server={server} serverContent={serverContent} />

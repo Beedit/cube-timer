@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faCogs, faArrowUpRightFromSquare, faOtter, faTableCells } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faCogs, faArrowUpRightFromSquare, faOtter, faTableCells, faAngleRight, faBars } from "@fortawesome/free-solid-svg-icons";
 
 const iconClasses = "px-1";
 const iconStyle = {
@@ -14,8 +14,8 @@ const HeartIcon = () => {
     return <FontAwesomeIcon icon={faHeart} className={iconClasses} style={iconStyle} />;
 };
 
-const CogIcon = () => {
-    return <FontAwesomeIcon icon={faCogs} className={iconClasses} style={iconStyle} />;
+const CogIcon = ({ text }: { text?: boolean }) => {
+    return <FontAwesomeIcon icon={faCogs} className={iconClasses} style={(text) ? {} : iconStyle} />;
 };
 
 const LinkIcon = () => {
@@ -30,4 +30,12 @@ const ThreeCubeIcon = () => {
     return <FontAwesomeIcon icon={faTableCells} bounce widthAuto style={iconStyle} />;
 };
 
-export { HeartIcon, CogIcon, LinkIcon, OtterIcon, ThreeCubeIcon };
+const ArrowIcon = () => {
+    return <FontAwesomeIcon icon={faAngleRight} widthAuto />;
+};
+
+const BarsIcon = () => {
+    return <FontAwesomeIcon icon={faBars} widthAuto />;
+};
+
+export { HeartIcon, CogIcon, LinkIcon, OtterIcon, ThreeCubeIcon, ArrowIcon, BarsIcon };

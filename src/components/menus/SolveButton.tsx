@@ -4,7 +4,7 @@ import { SolveMenu } from "./SolveMenu";
 import type { Solve } from "../../utils/interfaces/Solve";
 import { formatTimer } from "../../utils/data";
 
-export default function CategoryDropdown({ solve }: { solve: Solve }) {
+export default function SolveButton({ solve }: { solve: Solve }) {
     const modalState = useOverlayState();
     return (
         <>

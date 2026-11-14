@@ -1,12 +1,12 @@
 "use client";
 import { Button, Dropdown, Header, Label, useOverlayState } from "@heroui/react";
 import { useContext, useState, type ReactNode } from "react";
-import WhiteBox from "../WhiteBox";
 import { getAllCategories } from "../../utils/api";
 import { Status } from "../../utils/enums/Status";
 import type { Category } from "../../utils/interfaces/Category";
-import { SetSolveData } from "../../app/page";
+import { SetSolveData } from "../../app/providers";
 import { ManageCategoriesModal } from "./ManageCategoriesModal";
+import { ArrowIcon } from "../icons/icons";
 
 export default function CategoryDropdown() {
     const modalState = useOverlayState();
@@ -47,6 +47,7 @@ export default function CategoryDropdown() {
             >
                 <Button fullWidth>
                     Categories
+                    <ArrowIcon />
                 </Button>
                 <Dropdown.Popover>
                     <Dropdown.Menu>

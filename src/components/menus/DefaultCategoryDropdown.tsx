@@ -1,11 +1,11 @@
 "use client";
-import { Dropdown, Header, Label } from "@heroui/react";
+import { Button, Dropdown, Header, Label } from "@heroui/react";
 import { useState, type ReactNode } from "react";
-import WhiteBox from "../WhiteBox";
 import { getAllCategories } from "../../utils/api";
 import { Status } from "../../utils/enums/Status";
 import type { Category } from "../../utils/interfaces/Category";
 import { updateSetting } from "../../utils/config";
+import { ArrowIcon } from "../icons/icons";
 
 export default function DefaultCategoryDropdown() {
     const [children, setChildren] = useState<ReactNode[]>();
@@ -41,11 +41,10 @@ export default function DefaultCategoryDropdown() {
                 }
             }}
             >
-                <Dropdown.Trigger>
-                    <WhiteBox>
-                        Default Category
-                    </WhiteBox>
-                </Dropdown.Trigger>
+                <Button>
+                    Select
+                    <ArrowIcon />
+                </Button>
                 <Dropdown.Popover>
                     <Dropdown.Menu>
                         <Dropdown.Section>

@@ -30,3 +30,7 @@ export const isSolve = (object: any): object is Solve => {
 
     return false;
 };
+
+export const getRealTime = (solve: Solve) => {
+    return solve.time + (2000 * solve.plusTwoCount);
+};

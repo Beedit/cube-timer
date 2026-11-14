@@ -44,7 +44,7 @@ const setPlusTwo = async (id: number, count: number) => {
 const setDnf = async (id: number, dnf: boolean) => {
     axios.put(await getSetting("server") + "/solve/dnf", {
         id: id,
-        dnf: dnf,
+        isDnf: dnf,
     }).then((result) => {
         // Add handling
         console.log(result);

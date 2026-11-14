@@ -1,7 +1,7 @@
 "use client";
 import { useContext, useEffect } from "react";
 import GlassBox from "./GlassBox";
-import { SetSolveData, SolveData } from "../app/page";
+import { SetSolveData, SolveData } from "../app/providers";
 import { getSetting } from "../utils/config";
 import type { Category } from "../utils/interfaces/Category";
 export default function Scramble() {

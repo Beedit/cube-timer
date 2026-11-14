@@ -12,7 +12,7 @@ export const ManageCategoriesModal = ({ disclosure }: { disclosure: UseOverlaySt
                             <Modal.Icon>
                                 <CogIcon />
                             </Modal.Icon>
-                            <Modal.Heading>Manage Categories</Modal.Heading>
+                            <Modal.Heading><b>Manage Categories</b></Modal.Heading>
                         </Modal.Header>
                         <Modal.Body />
                         <Modal.Footer />

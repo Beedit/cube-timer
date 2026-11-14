@@ -17,9 +17,15 @@ export const SolveMenu = ({ modalState, solve }: { modalState: UseOverlayStateRe
                                 <ThreeCubeIcon />
                             </Modal.Icon>
                             <Modal.Heading>
-                                {`Solve${(solve.id) ? " " + solve.id : ""}: ${formatTimer(solve.time)} on ${new Date(solve.date).toLocaleDateString()}`}
+                                <b>
+                                    {`Solve${(solve.id) ? " " + solve.id : ""}: ${formatTimer(solve.time)} on ${new Date(solve.date).toLocaleDateString()}`}
+                                </b>
                                 <br />
-                                {`Time: ${formatTimer(solve.time)}`}
+                                {`Real Time: ${formatTimer(solve.time)}`}
+                                <br />
+                                {(solve.plusTwoCount > 0) ? `${solve.plusTwoCount} * +2` : ""}
+                                <br />
+                                {(solve.dnf) ? "DNF" : ""}
                             </Modal.Heading>
                         </Modal.Header>
                         <Modal.Body className="grid grid-cols-4 gap-3">
@@ -30,7 +36,14 @@ export const SolveMenu = ({ modalState, solve }: { modalState: UseOverlayStateRe
                             <Button fullWidth>
                                 Set Plus Two
                             </Button>
-                            <ToggleButton defaultSelected={solve.dnf} onPress={() => setDnf(solve.id, !solve.dnf)} className="w-full">
+                            <ToggleButton
+                                defaultSelected={solve.dnf}
+                                onPress={() => {
+                                    // solve.dnf = !solve.dnf;
+                                    setDnf(solve.id, !solve.dnf);
+                                }}
+                                className="w-full"
+                            >
                                 Set DNF
                             </ToggleButton>
                             <Button

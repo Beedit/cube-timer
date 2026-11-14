@@ -2,7 +2,7 @@
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import GlassBox from "./GlassBox";
 import { submit } from "../utils/api";
-import { SetSolveData, SolveData } from "../app/page";
+import { SetSolveData, SolveData } from "../app/providers";
 import { formatTimer } from "../utils/data";
 
 export default function Timer() {

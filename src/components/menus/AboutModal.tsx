@@ -13,7 +13,7 @@ export const AboutModal = ({ modalState }: { modalState: UseOverlayStateReturn }
                             <Modal.Icon>
                                 <OtterIcon />
                             </Modal.Icon>
-                            <Modal.Heading>About</Modal.Heading>
+                            <Modal.Heading><b>About</b></Modal.Heading>
                         </Modal.Header>
                         <Modal.Body>
                             <p>
