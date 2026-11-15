@@ -1,5 +1,6 @@
 import { Modal, type UseOverlayStateReturn } from "@heroui/react";
 import { CogIcon } from "../icons/icons";
+import CategoryTable from "../parts/CategoryTable";
 
 export const ManageCategoriesModal = ({ disclosure }: { disclosure: UseOverlayStateReturn }) => {
     return (
@@ -14,7 +15,11 @@ export const ManageCategoriesModal = ({ disclosure }: { disclosure: UseOverlaySt
                             </Modal.Icon>
                             <Modal.Heading><b>Manage Categories</b></Modal.Heading>
                         </Modal.Header>
-                        <Modal.Body />
+                        <Modal.Body>
+                            <div className="grid grid-cols-1 gap-3">
+                                <CategoryTable />
+                            </div>
+                        </Modal.Body>
                         <Modal.Footer />
                     </Modal.Dialog>
                 </Modal.Container>

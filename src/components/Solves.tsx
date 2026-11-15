@@ -4,7 +4,7 @@ import GlassBox from "./GlassBox";
 import { getAllTimes } from "../utils/api";
 import { Status } from "../utils/enums/Status";
 import { type Solve } from "../utils/interfaces/Solve";
-import SolveButton from "./menus/SolveButton";
+import SolveButton from "./menus/parts/SolveButton";
 
 export default function Solves() {
     const [children, setChildren] = useState<ReactNode[]>();

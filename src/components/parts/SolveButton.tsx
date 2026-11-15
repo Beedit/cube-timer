@@ -1,6 +1,6 @@
 "use client";
 import { Button, Separator, useOverlayState } from "@heroui/react";
-import { SolveMenu } from "./SolveMenu";
+import { SolveMenu } from "../menus/SolveMenu";
 import type { Solve } from "../../utils/interfaces/Solve";
 import { formatTimer } from "../../utils/data";
 

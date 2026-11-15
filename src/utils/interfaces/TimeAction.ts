@@ -1,6 +1,6 @@
 import type { Category } from "./Category";
 
-export interface Action {
+export interface TimeAction {
     type: "time" | "date" | "scramble" | "category" | "nextScramble"
     data?: number | string | Category
 }

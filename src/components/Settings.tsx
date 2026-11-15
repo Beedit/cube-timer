@@ -2,7 +2,7 @@
 import { useRef, useState } from "react";
 import GlassBox from "./GlassBox";
 import { getSetting, updateSetting } from "../utils/config";
-import CategoryDropdown from "./menus/CategoryDropdown";
+import CategoryDropdown from "./parts/CategoryDropdown";
 import { Button, useOverlayState } from "@heroui/react";
 import { SettingsModal } from "./menus/SettingsModal";
 import { AboutModal } from "./menus/AboutModal";

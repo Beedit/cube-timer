@@ -1,6 +1,6 @@
 import { type UseOverlayStateReturn, Modal } from "@heroui/react";
 import { HeartIcon, OtterIcon } from "../icons/icons";
-import Link from "../Link";
+import Link from "../parts/Link";
 
 export const AboutModal = ({ modalState }: { modalState: UseOverlayStateReturn }) => {
     return (

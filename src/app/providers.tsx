@@ -2,7 +2,7 @@
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { createContext, useReducer, type ActionDispatch } from "react";
 import { updateSolveData } from "../utils/data";
-import type { Action } from "../utils/interfaces/Action";
+import type { TimeAction } from "../utils/interfaces/TimeAction";
 import type { Time } from "../utils/interfaces/Time";
 
 const time = {
@@ -14,7 +14,7 @@ const time = {
 };
 
 export const SolveData = createContext<Time>(time);
-export const SetSolveData = createContext<ActionDispatch<[action: Action]>>(() => {});
+export const SetSolveData = createContext<ActionDispatch<[action: TimeAction]>>(() => {});
 
 export function Providers({ children }: { children: React.ReactNode }) {
     const [currentSolveData, setSolveData] = useReducer(updateSolveData, time);

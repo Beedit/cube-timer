@@ -1,6 +1,6 @@
 import { Link } from "@heroui/react";
 import { openUrl } from "@tauri-apps/plugin-opener";
-import { LinkIcon } from "./icons/icons";
+import { LinkIcon } from "../icons/icons";
 
 const TauriLink = ({ url, children }: { url: string, children: React.ReactNode }) => {
     return (

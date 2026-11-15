@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHeart, faCogs, faArrowUpRightFromSquare, faOtter, faTableCells, faAngleRight, faBars } from "@fortawesome/free-solid-svg-icons";
+import { faHeart, faCogs, faArrowUpRightFromSquare, faOtter, faTableCells, faAngleRight, faBars, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 
 const iconClasses = "px-1";
 const iconStyle = {
@@ -38,4 +38,8 @@ const BarsIcon = () => {
     return <FontAwesomeIcon icon={faBars} widthAuto />;
 };
 
-export { HeartIcon, CogIcon, LinkIcon, OtterIcon, ThreeCubeIcon, ArrowIcon, BarsIcon };
+const BinIcon = () => {
+    return <FontAwesomeIcon icon={faTrashCan} widthAuto />;
+};
+
+export { HeartIcon, CogIcon, LinkIcon, OtterIcon, ThreeCubeIcon, ArrowIcon, BarsIcon, BinIcon };

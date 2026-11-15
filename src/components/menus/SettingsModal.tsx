@@ -1,8 +1,8 @@
 import { Input, Label, Modal, type UseOverlayStateReturn } from "@heroui/react";
 import { CogIcon } from "../icons/icons";
 import type { RefObject } from "react";
-import DefaultCategoryDropdown from "./DefaultCategoryDropdown";
-import { ThemeSelector } from "./ThemeSelector";
+import DefaultCategoryDropdown from "../parts/DefaultCategoryDropdown";
+import { ThemeSelector } from "../parts/ThemeSelector";
 
 export const SettingsModal = ({ modalState, server, serverContent }: { modalState: UseOverlayStateReturn, server: RefObject<HTMLInputElement | null>, serverContent: string }) => {
     return (

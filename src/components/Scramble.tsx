@@ -7,7 +7,6 @@ import type { Category } from "../utils/interfaces/Category";
 export default function Scramble() {
     const solve = useContext(SolveData);
     const editSolveData = useContext(SetSolveData);
-    const scramble = solve.scramble;
 
     useEffect(() => {
         const f = async () => {
@@ -21,7 +20,7 @@ export default function Scramble() {
     return (
         <GlassBox>
             <div className="text-[1.5vh] font-bold h-full flex items-center justify-center transition">
-                {scramble}
+                {solve.scramble}
             </div>
         </GlassBox>
     );

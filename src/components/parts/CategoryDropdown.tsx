@@ -5,7 +5,7 @@ import { getAllCategories } from "../../utils/api";
 import { Status } from "../../utils/enums/Status";
 import type { Category } from "../../utils/interfaces/Category";
 import { SetSolveData } from "../../app/providers";
-import { ManageCategoriesModal } from "./ManageCategoriesModal";
+import { ManageCategoriesModal } from "../menus/ManageCategoriesModal";
 import { ArrowIcon } from "../icons/icons";
 
 export default function CategoryDropdown() {

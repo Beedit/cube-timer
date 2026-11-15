@@ -82,6 +82,17 @@ const deleteSolve = async (id: number) => {
     });
 };
 
+const deleteCategory = async (category: string) => {
+    axios.delete(await getSetting("server") + "/category", {
+        data: {
+            category: category,
+        },
+    }).then((result) => {
+        // Add handling
+        console.log(result);
+    });
+};
+
 const getAllTimes = async () => {
     const response = await axios.get(await getSetting("server") + "/solve/all");
 
@@ -110,4 +121,4 @@ const getAllCategories = async () => {
     } as Result;
 };
 
-export { submit, setPlusTwo, setDnf, setNote, setScramble, deleteSolve, getAllTimes, getAllCategories };
+export { submit, setPlusTwo, setDnf, setNote, setScramble, deleteSolve, getAllTimes, getAllCategories, deleteCategory };

@@ -1,10 +1,11 @@
 "use client";
-import type { Action } from "./interfaces/Action";
+import type { TimeAction } from "./interfaces/TimeAction";
 import cstimer from "cstimer_module";
 import type { Time } from "./interfaces/Time";
-import type { Category } from "./interfaces/Category";
+import { isCategory, type Category } from "./interfaces/Category";
+import type { CategoryAction } from "./interfaces/CategoryAction";
 
-const updateSolveData = (currentState: Time, action: Action) => {
+const updateSolveData = (currentState: Time, action: TimeAction) => {
     switch (action.type) {
         case "time":
             return { ...currentState, time: action.data as number };
@@ -19,6 +20,20 @@ const updateSolveData = (currentState: Time, action: Action) => {
         case "nextScramble": {
             return { ...currentState, scramble: cstimer.getScramble(currentState.puzzle) };
         }
+    }
+};
+
+const updateCategories = (currentState: Category[], action: CategoryAction) => {
+    switch (action.type) {
+        case "add": {
+            const x = currentState;
+            if (isCategory(action.data)) {
+                x.push(action.data);
+            }
+            return x;
+        }
+        case "remove":
+            return currentState.filter(item => item.categoryName != action.data);
     }
 };
 
@@ -61,4 +76,4 @@ const competitions = {
     "3x3 Multi-Blind": { scrambleType: "r3ni", scrambleLength: 5 },
 };
 
-export { updateSolveData, formatTimer, competitions };
+export { updateSolveData, formatTimer, competitions, updateCategories };
