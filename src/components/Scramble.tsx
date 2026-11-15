@@ -20,7 +20,7 @@ export default function Scramble() {
 
     return (
         <GlassBox>
-            <div className="text-[1.2vw] font-bold h-full flex items-center justify-center transition">
+            <div className="text-[1.5vh] font-bold h-full flex items-center justify-center transition">
                 {scramble}
             </div>
         </GlassBox>
