@@ -4,7 +4,6 @@ import Preview from "../components/Preview";
 import Scramble from "../components/Scramble";
 import Settings from "../components/Settings";
 import Timer from "../components/Timer";
-import Widget from "../components/Widget";
 import "./globals.css";
 
 import Solves from "../components/Solves";
@@ -23,14 +22,14 @@ export default function Page() {
     }, [setTheme]);
 
     return (
-        <div className="grid grid-cols-7 grid-rows-7 gap-5 w-screen h-screen p-7.5">
-            <div className="row-span-3 col-start-1 row-start-5"><Solves /></div>
-            <div className="row-span-3 col-start-7 row-start-5"><Settings /></div>
-            <div className="col-span-3 row-span-3 col-start-3 row-start-3"><Timer /></div>
-            <div className="row-span-3 col-start-7 row-start-1"><Widget /></div>
-            <div className="row-span-3 col-start-1 row-start-1"><Infobox /></div>
-            <div className="col-span-3 col-start-3 row-start-1"><Scramble /></div>
-            <div className="col-span-3 col-start-3 row-start-7"><Preview /></div>
+        <div className="grid gap-4 w-screen h-screen p-7.5 grid-cols-5 grid-rows-9 md:grid-cols-9">
+            <div className="col-span-3 col-start-2 md:col-start-4"><Scramble /></div>
+            <div className="col-span-3 col-start-2 row-span-3 row-start-3 md:col-start-4"><Timer /></div>
+            <div className="col-span-3 col-start-2 row-start-6 md:col-start-4"><Infobox /></div>
+            <div className="col-span-3 col-start-2 row-span-2 row-start-8 md:col-start-4"><Preview /></div>
+            <div className="col-span-2 row-span-3 col-start-8 row-start-7 hidden md:block"><Settings /></div>
+            <div className="col-span-2 row-span-9 col-start-1 row-start-1 hidden md:block"><Solves /></div>
         </div>
+
     );
 }
