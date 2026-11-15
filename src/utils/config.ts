@@ -5,7 +5,7 @@ import type { Category } from "./interfaces/Category";
 const defaults = {
     server: "http://localhost:5000",
     defaultCategory: {
-        categoryName: "3x3x3",
+        categoryName: "3x3",
         puzzleType: "333",
     },
     theme: "system",
