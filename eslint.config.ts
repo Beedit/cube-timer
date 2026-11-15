@@ -46,6 +46,7 @@ export default defineConfig([
             "next-env.d.ts",
             ".vscode",
             "node_modules",
+            "src-tauri",
         ],
     ),
 ]);
