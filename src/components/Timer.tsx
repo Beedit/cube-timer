@@ -45,7 +45,7 @@ export default function Timer() {
         if (isRunning) {
             interval.current = setInterval(() => {
                 setTime(Date.now() - timeRef.current);
-            }, 100);
+            }, 10);
         }
 
         return () => {
