@@ -1,10 +1,8 @@
 "use client";
 import { Button, Dropdown, Header, Label, useOverlayState } from "@heroui/react";
 import { useContext, useState, type ReactNode } from "react";
-import { getAllCategories } from "../../utils/api";
-import { Status } from "../../utils/enums/Status";
 import type { Category } from "../../utils/interfaces/Category";
-import { SetSolveData } from "../../app/providers";
+import { CategoryData, SetSolveData } from "../../app/providers";
 import { ManageCategoriesModal } from "../menus/ManageCategoriesModal";
 import { ArrowIcon } from "../icons/icons";
 
@@ -12,6 +10,7 @@ export default function CategoryDropdown() {
     const modalState = useOverlayState();
     const [children, setChildren] = useState<ReactNode[]>();
     const setSolveData = useContext(SetSolveData);
+    const categories = useContext(CategoryData);
 
     const onItemOpen = (category: Category) => {
         setSolveData({ type: "category", data: category });
@@ -20,19 +19,16 @@ export default function CategoryDropdown() {
 
     const f = async () => {
         const children: ReactNode[] = [];
-        const categories = await getAllCategories();
 
-        if (categories.status == Status.Success && Array.isArray(categories.result)) {
-            categories.result.forEach((category: Category) => {
-                children.push(
-                    <Dropdown.Item key={category.categoryName} onAction={() => onItemOpen(category)}>
-                        <Label>
-                            {category.categoryName}
-                        </Label>
-                    </Dropdown.Item>,
-                );
-            });
-        }
+        categories.forEach((category: Category) => {
+            children.push(
+                <Dropdown.Item key={category.categoryName} onAction={() => onItemOpen(category)}>
+                    <Label>
+                        {category.categoryName}
+                    </Label>
+                </Dropdown.Item>,
+            );
+        });
 
         setChildren(children);
     };

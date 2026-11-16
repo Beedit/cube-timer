@@ -1,19 +1,26 @@
 import { Table, TableBody } from "@heroui/react";
-import { type ReactNode } from "react";
+import { useContext, useEffect, useState, type ReactNode } from "react";
 import type { Category } from "../../utils/interfaces/Category";
 import CategoryRow from "./CategoryRow";
+import { CategoryData } from "../../app/providers";
 
 export default function CategoryTable() {
-    const categories: Category[] = [];
-    const nodes: ReactNode[] = [];
+    const [children, setChildren] = useState<ReactNode[]>();
+    const categories = useContext(CategoryData);
+    useEffect(() => {
+        const f = async () => {
+            const nodes: ReactNode[] = [];
 
-    const f = async () => {
-        categories.forEach((category) => {
-            nodes.push(<CategoryRow category={category as Category} key={category.categoryName} />);
-        });
-    };
+            categories.forEach((category) => {
+                nodes.push(<CategoryRow category={category as Category} key={category.categoryName} />);
+            });
 
-    f();
+            setChildren(nodes);
+        };
+
+        f();
+    }, [categories]);
+
     return (
         <Table>
             <Table.ScrollContainer>
@@ -25,7 +32,7 @@ export default function CategoryTable() {
                         <Table.Column></Table.Column>
                     </Table.Header>
                     <TableBody>
-                        {nodes}
+                        {children}
                     </TableBody>
                 </Table.Content>
             </Table.ScrollContainer>

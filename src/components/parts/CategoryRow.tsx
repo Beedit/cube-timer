@@ -1,11 +1,16 @@
 import { Button, Table } from "@heroui/react";
 import type { Category } from "../../utils/interfaces/Category";
 import { BinIcon } from "../icons/icons";
-import { deleteCategory } from "../../utils/api";
+import { useContext } from "react";
+import { SetCategoryData } from "../../app/providers";
 
 const CategoryRow = ({ category }: { category: Category }) => {
+    const updateCategory = useContext(SetCategoryData);
     const onClick = (category: Category) => {
-        deleteCategory(category.categoryName);
+        updateCategory({
+            type: "remove",
+            data: category.categoryName,
+        });
     };
 
     return (

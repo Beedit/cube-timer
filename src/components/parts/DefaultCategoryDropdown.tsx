@@ -1,26 +1,25 @@
 "use client";
 import { Button, Dropdown, Header, Label } from "@heroui/react";
-import { useState, type ReactNode } from "react";
-import { getAllCategories } from "../../utils/api";
-import { Status } from "../../utils/enums/Status";
+import { useContext, useEffect, useState, type ReactNode } from "react";
 import type { Category } from "../../utils/interfaces/Category";
 import { updateSetting } from "../../utils/config";
 import { ArrowIcon } from "../icons/icons";
+import { CategoryData } from "../../app/providers";
 
 export default function DefaultCategoryDropdown() {
     const [children, setChildren] = useState<ReactNode[]>();
+    const categories = useContext(CategoryData);
 
     const onItemOpen = (category: Category) => {
         updateSetting("defaultCategory", category);
     };
 
-    const f = async () => {
-        const children: ReactNode[] = [];
-        const categories = await getAllCategories();
+    useEffect(() => {
+        const f = () => {
+            const nodes: ReactNode[] = [];
 
-        if (categories.status == Status.Success && Array.isArray(categories.result)) {
-            categories.result.forEach((category: Category) => {
-                children.push(
+            categories.forEach((category: Category) => {
+                nodes.push(
                     <Dropdown.Item key={category.categoryName} onAction={() => onItemOpen(category)}>
                         <Label>
                             {category.categoryName}
@@ -28,19 +27,16 @@ export default function DefaultCategoryDropdown() {
                     </Dropdown.Item>,
                 );
             });
-        }
 
-        setChildren(children);
-    };
+            setChildren(nodes);
+        };
+
+        f();
+    }, [categories]);
 
     return (
         <>
-            <Dropdown onOpenChange={(open) => {
-                if (open) {
-                    f();
-                }
-            }}
-            >
+            <Dropdown>
                 <Button>
                     Select
                     <ArrowIcon />

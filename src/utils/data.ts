@@ -3,7 +3,8 @@ import type { TimeAction } from "./interfaces/TimeAction";
 import cstimer from "cstimer_module";
 import type { Time } from "./interfaces/Time";
 import { isCategory, type Category } from "./interfaces/Category";
-import type { CategoryAction } from "./interfaces/CategoryAction";
+import { type CategoryAction } from "./interfaces/CategoryAction";
+import { deleteCategory } from "./api";
 
 const updateSolveData = (currentState: Time, action: TimeAction) => {
     switch (action.type) {
@@ -33,6 +34,7 @@ const updateCategories = (currentState: Category[], action: CategoryAction) => {
             return x;
         }
         case "remove":
+            deleteCategory(action.data as string);
             return currentState.filter(item => item.categoryName != action.data);
     }
 };
