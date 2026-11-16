@@ -9,7 +9,7 @@ import { Status } from "../utils/enums/Status";
 import { deleteCategory } from "./api";
 import { createContext, type ActionDispatch } from "react";
 import type { SolveListAction } from "./interfaces/actions/SolveListAction";
-import { isSolve, type Solve } from "./interfaces/Solve";
+import { getRealTime, isSolve, type Solve } from "./interfaces/Solve";
 
 const updateTimeData = (currentState: Time, action: TimeAction) => {
     switch (action.type) {
@@ -73,6 +73,23 @@ const formatTimer = (time: number) => {
     return `${(formattedMins == "00") ? "" : `${formattedMins}:`}${formattedSecs}.${formattedMs}`;
 };
 
+const getAoX = (times: Solve[], removeFromEachEnd: number) => {
+    times.sort((a, b) => (a.time > b.time) ? 1 : -1);
+    times = times.slice(removeFromEachEnd).slice(0, -removeFromEachEnd);
+
+    return getMean(times);
+};
+
+const getMean = (times: Solve[]) => {
+    let c = 0;
+
+    times.forEach((time) => {
+        c += getRealTime(time);
+    });
+
+    return c / times.length;
+};
+
 /**
  * A list of the default competitions
  */
@@ -119,4 +136,4 @@ export const SetCategoryData = createContext<ActionDispatch<[action: CategoryAct
 export const SolveListData = createContext<Solve[]>(solveListInitialState);
 export const SetSolveListData = createContext<ActionDispatch<[action: SolveListAction]>>(() => {});
 
-export { updateTimeData, formatTimer, competitions, updateCategories, updateSolveList };
+export { updateTimeData, formatTimer, competitions, updateCategories, updateSolveList, getAoX, getMean };
