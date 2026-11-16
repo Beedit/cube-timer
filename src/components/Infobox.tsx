@@ -18,7 +18,6 @@ export default function Infobox() {
         const f = async () => {
             const allSolves = solveData.toSorted((a, b) => (a.date > b.date) ? -1 : 1);
             const solves = allSolves.filter(solve => solve.category == timeData.category);
-            console.log(solves.slice(0, 5));
             setAverages({
                 ao5: (solves.length >= 5) ? getAoX(solves.slice(0, 5), 1) : "Do more solves!",
                 ao12: (solves.length >= 12) ? getAoX(solves.slice(0, 12), 1) : "Do more solves!",
