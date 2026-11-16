@@ -2,13 +2,13 @@ import { Table, TableBody } from "@heroui/react";
 import { useContext, useEffect, useState, type ReactNode } from "react";
 import type { Category } from "../../utils/interfaces/Category";
 import CategoryRow from "./CategoryRow";
-import { CategoryData } from "../../app/providers";
+import { CategoryData } from "../../utils/data";
 
 export default function CategoryTable() {
     const [children, setChildren] = useState<ReactNode[]>();
     const categories = useContext(CategoryData);
     useEffect(() => {
-        const f = async () => {
+        const f = () => {
             const nodes: ReactNode[] = [];
 
             categories.forEach((category) => {

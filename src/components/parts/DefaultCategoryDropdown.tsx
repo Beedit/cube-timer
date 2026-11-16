@@ -4,13 +4,13 @@ import { useContext, useEffect, useState, type ReactNode } from "react";
 import type { Category } from "../../utils/interfaces/Category";
 import { updateSetting } from "../../utils/config";
 import { ArrowIcon } from "../icons/icons";
-import { CategoryData } from "../../app/providers";
+import { CategoryData } from "../../utils/data";
 
 export default function DefaultCategoryDropdown() {
     const [children, setChildren] = useState<ReactNode[]>();
     const categories = useContext(CategoryData);
 
-    const onItemOpen = (category: Category) => {
+    const onItemClick = (category: Category) => {
         updateSetting("defaultCategory", category);
     };
 
@@ -20,7 +20,7 @@ export default function DefaultCategoryDropdown() {
 
             categories.forEach((category: Category) => {
                 nodes.push(
-                    <Dropdown.Item key={category.categoryName} onAction={() => onItemOpen(category)}>
+                    <Dropdown.Item key={category.categoryName} onAction={() => onItemClick(category)}>
                         <Label>
                             {category.categoryName}
                         </Label>

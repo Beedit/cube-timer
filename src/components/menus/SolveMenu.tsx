@@ -1,11 +1,14 @@
 import { type UseOverlayStateReturn, Button, Input, Modal, TextArea, ToggleButton } from "@heroui/react";
 import type { Solve } from "../../utils/interfaces/Solve";
 import { ThreeCubeIcon } from "../icons/icons";
-import { formatTimer } from "../../utils/data";
-import { deleteSolve, setDnf } from "../../utils/api";
+import { formatTimer, SetSolveListData } from "../../utils/data";
+import { setDnf } from "../../utils/api";
 import * as he from "he";
+import { useContext } from "react";
 
 export const SolveMenu = ({ modalState, solve }: { modalState: UseOverlayStateReturn, solve: Solve }) => {
+    const setSolveListData = useContext(SetSolveListData);
+
     return (
         <Modal state={modalState}>
             <Modal.Backdrop>
@@ -23,7 +26,7 @@ export const SolveMenu = ({ modalState, solve }: { modalState: UseOverlayStateRe
                                 <br />
                                 {`Real Time: ${formatTimer(solve.time)}`}
                                 <br />
-                                {(solve.plusTwoCount > 0) ? `${solve.plusTwoCount} * +2` : ""}
+                                {(solve.plusTwo > 0) ? `${solve.plusTwo} * +2` : ""}
                                 <br />
                                 {(solve.dnf) ? "DNF" : ""}
                             </Modal.Heading>
@@ -50,7 +53,10 @@ export const SolveMenu = ({ modalState, solve }: { modalState: UseOverlayStateRe
                                 fullWidth
                                 variant="danger"
                                 onPress={() => {
-                                    deleteSolve(solve.id);
+                                    setSolveListData({
+                                        type: "remove",
+                                        data: solve,
+                                    });
                                     modalState.close();
                                 }}
                             >

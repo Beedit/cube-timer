@@ -1,13 +1,15 @@
 "use client";
 import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import GlassBox from "./GlassBox";
-import { submit } from "../utils/api";
-import { SetSolveData, SolveData } from "../app/providers";
-import { formatTimer } from "../utils/data";
+import { getSolveByID, submit } from "../utils/api";
+import { formatTimer, SetSolveListData, SetTimeData, TimeData } from "../utils/data";
+import { Status } from "../utils/enums/Status";
+import { isSolve } from "../utils/interfaces/Solve";
 
 export default function Timer() {
-    const solveData = useContext(SolveData);
-    const setSolveData = useContext(SetSolveData);
+    const timeData = useContext(TimeData);
+    const setTimeData = useContext(SetTimeData);
+    const updateSolveList = useContext(SetSolveListData);
     const [isRunning, setRunning] = useState(false);
     const [keyBindCheck, setKeyBindCheck] = useState(false);
     const [localTime, setTime] = useState(0);
@@ -18,7 +20,6 @@ export default function Timer() {
     const timerElement = useRef<HTMLDivElement>(null);
 
     const startTimer = () => {
-        console.log("starting");
         spaceStartTime.current = NaN;
         spaceTime.current = NaN;
         setRunning(false);
@@ -27,19 +28,29 @@ export default function Timer() {
         setRunning(true);
     };
 
-    const stopTimer = useCallback(() => {
+    const stopTimer = useCallback(async () => {
         setRunning(false);
-        submit(localTime, Date.now(), solveData.category, solveData.scramble);
-        setSolveData({
+
+        const solveID = await submit(localTime, Date.now(), timeData.category, timeData.scramble);
+        if (solveID.status == Status.Success && typeof solveID.result === "string") {
+            const solve = await getSolveByID(solveID.result);
+            if (solve.status == Status.Success && isSolve(solve.result)) {
+                updateSolveList({
+                    type: "add",
+                    data: solve.result,
+                });
+            }
+        }
+        setTimeData({
             type: "time",
             data: localTime,
         });
-        setSolveData({
+        setTimeData({
             type: "date",
             data: Date.now(),
         });
-        setSolveData({ type: "nextScramble" });
-    }, [localTime, solveData.category, solveData.scramble, setSolveData]);
+        setTimeData({ type: "nextScramble" });
+    }, [localTime, timeData.category, timeData.scramble, setTimeData, updateSolveList]);
 
     useEffect(() => {
         if (isRunning) {

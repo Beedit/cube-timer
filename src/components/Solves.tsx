@@ -1,32 +1,29 @@
 "use client";
-import { useEffect, useState, type ReactNode } from "react";
+import { useContext, useEffect, useState, type ReactNode } from "react";
 import GlassBox from "./GlassBox";
-import { getAllTimes } from "../utils/api";
-import { Status } from "../utils/enums/Status";
-import { type Solve } from "../utils/interfaces/Solve";
 import SolveButton from "./parts/SolveButton";
+import { SolveListData, TimeData } from "../utils/data";
 
 export default function Solves() {
     const [children, setChildren] = useState<ReactNode[]>();
+    const solveList = useContext(SolveListData);
+    const currentTime = useContext(TimeData);
 
     useEffect(() => {
-        const f = async () => {
-            const {
-                status,
-                result: times,
-            } = await getAllTimes();
-            console.log(times);
-            if (status === Status.Success && Array.isArray(times)) {
-                const timesList: ReactNode[] = [];
-                for (const time of times) {
-                    timesList.push(<SolveButton solve={time as Solve} key={time.id} />);
+        const f = () => {
+            const timesList: ReactNode[] = [];
+
+            solveList.forEach((solve) => {
+                if (solve.category == currentTime.category) {
+                    timesList.push(<SolveButton solve={solve} key={solve.id} />);
                 }
-                setChildren(timesList.reverse());
-            }
+            });
+
+            setChildren(timesList.reverse());
         };
 
         f();
-    }, []);
+    }, [currentTime.category, solveList]);
 
     return (
         <GlassBox>

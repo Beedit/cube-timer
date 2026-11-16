@@ -1,26 +1,26 @@
 "use client";
 import { useContext, useEffect } from "react";
 import GlassBox from "./GlassBox";
-import { SetSolveData, SolveData } from "../app/providers";
+import { SetTimeData, TimeData } from "../utils/data";
 import { getSetting } from "../utils/config";
 import type { Category } from "../utils/interfaces/Category";
 export default function Scramble() {
-    const solve = useContext(SolveData);
-    const editSolveData = useContext(SetSolveData);
+    const time = useContext(TimeData);
+    const editTimeData = useContext(SetTimeData);
 
     useEffect(() => {
         const f = async () => {
-            editSolveData({ type: "category", data: await getSetting("defaultCategory") as Category });
-            editSolveData({ type: "nextScramble" });
+            editTimeData({ type: "category", data: await getSetting("defaultCategory") as Category });
+            editTimeData({ type: "nextScramble" });
         };
 
         f();
-    }, [editSolveData]);
+    }, [editTimeData]);
 
     return (
         <GlassBox>
             <div className="text-[1.5vh] font-bold h-full flex items-center justify-center transition">
-                {solve.scramble}
+                {time.scramble}
             </div>
         </GlassBox>
     );

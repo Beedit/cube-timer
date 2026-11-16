@@ -2,19 +2,19 @@
 import { Button, Dropdown, Header, Label, useOverlayState } from "@heroui/react";
 import { useContext, useState, type ReactNode } from "react";
 import type { Category } from "../../utils/interfaces/Category";
-import { CategoryData, SetSolveData } from "../../app/providers";
 import { ManageCategoriesModal } from "../menus/ManageCategoriesModal";
 import { ArrowIcon } from "../icons/icons";
+import { CategoryData, SetTimeData } from "../../utils/data";
 
 export default function CategoryDropdown() {
     const modalState = useOverlayState();
     const [children, setChildren] = useState<ReactNode[]>();
-    const setSolveData = useContext(SetSolveData);
+    const setTimeData = useContext(SetTimeData);
     const categories = useContext(CategoryData);
 
     const onItemOpen = (category: Category) => {
-        setSolveData({ type: "category", data: category });
-        setSolveData({ type: "nextScramble" });
+        setTimeData({ type: "category", data: category });
+        setTimeData({ type: "nextScramble" });
     };
 
     const f = async () => {

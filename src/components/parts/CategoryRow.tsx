@@ -2,7 +2,7 @@ import { Button, Table } from "@heroui/react";
 import type { Category } from "../../utils/interfaces/Category";
 import { BinIcon } from "../icons/icons";
 import { useContext } from "react";
-import { SetCategoryData } from "../../app/providers";
+import { SetCategoryData } from "../../utils/data";
 
 const CategoryRow = ({ category }: { category: Category }) => {
     const updateCategory = useContext(SetCategoryData);

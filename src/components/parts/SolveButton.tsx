@@ -1,7 +1,7 @@
 "use client";
 import { Button, Separator, useOverlayState } from "@heroui/react";
 import { SolveMenu } from "../menus/SolveMenu";
-import type { Solve } from "../../utils/interfaces/Solve";
+import { getRealTime, type Solve } from "../../utils/interfaces/Solve";
 import { formatTimer } from "../../utils/data";
 
 export default function SolveButton({ solve }: { solve: Solve }) {
@@ -11,7 +11,7 @@ export default function SolveButton({ solve }: { solve: Solve }) {
             <Button onPress={() => modalState.setOpen(true)}>
                 {solve.id ?? ""}
                 <Separator orientation="vertical" />
-                {formatTimer(Number(solve.time)) + ((solve.plusTwoCount > 0) ? "+" : "")}
+                {formatTimer(getRealTime(solve)) + ((solve.plusTwo > 0) ? "+" : "")}
             </Button>
 
             <SolveMenu modalState={modalState} solve={solve} />

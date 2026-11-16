@@ -8,33 +8,44 @@ import type { Category } from "./interfaces/Category";
 import type { Solve } from "./interfaces/Solve";
 
 const submit = async (time: number, date: number, category: string, scramble: string) => {
-    let res: Result = {
-        status: Status.Fail,
-    };
-    axios.post(await getSetting("server") + "/solve", {
+    const response = await axios.post(await getSetting("server") + "/solve", {
         time: time,
         date: date,
         category: category,
         scramble: scramble,
-    }).then((response) => {
-        if (response.data.success == true) {
-            res = {
-                status: Status.Success,
-                result: response.data.result as number,
-            } as Result;
-        }
-    }).catch((reason) => {
-        console.log(reason);
-        return "ERR";
     });
 
-    return res;
+    if (response.data.success) {
+        return {
+            status: Status.Success,
+            result: response.data.result as number,
+        } as Result;
+    } else {
+        return {
+            result: Status.Fail,
+        } as Result;
+    }
+};
+
+const getSolveByID = async (id: string) => {
+    const response = await axios.get(await getSetting("server") + `/solve?id=${id}`);
+
+    if (response.data.success == true) {
+        return {
+            status: Status.Success,
+            result: response.data.result as Solve,
+        } as Result;
+    } else {
+        return {
+            status: Status.Fail,
+        } as Result;
+    }
 };
 
 const setPlusTwo = async (id: number, count: number) => {
     axios.put(await getSetting("server") + "/solve/plusTwo", {
         id: id,
-        plusTwoCount: count,
+        plusTwo: count,
     }).then((result) => {
         // Add handling
         console.log(result);
@@ -93,7 +104,7 @@ const deleteCategory = async (category: string) => {
     });
 };
 
-const getAllTimes = async () => {
+const getAllSolves = async () => {
     const response = await axios.get(await getSetting("server") + "/solve/all");
 
     if (response.status == 200) {
@@ -121,4 +132,4 @@ const getAllCategories = async () => {
     } as Result;
 };
 
-export { submit, setPlusTwo, setDnf, setNote, setScramble, deleteSolve, getAllTimes, getAllCategories, deleteCategory };
+export { submit, setPlusTwo, setDnf, setNote, setScramble, deleteSolve, getAllSolves, getAllCategories, deleteCategory, getSolveByID };

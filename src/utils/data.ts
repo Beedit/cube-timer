@@ -1,12 +1,17 @@
 "use client";
-import type { TimeAction } from "./interfaces/TimeAction";
+import type { TimeAction } from "./interfaces/actions/TimeAction";
 import cstimer from "cstimer_module";
 import type { Time } from "./interfaces/Time";
 import { isCategory, type Category } from "./interfaces/Category";
-import { type CategoryAction } from "./interfaces/CategoryAction";
+import { type CategoryAction } from "./interfaces/actions/CategoryAction";
+import { deleteSolve, getAllCategories, getAllSolves } from "../utils/api";
+import { Status } from "../utils/enums/Status";
 import { deleteCategory } from "./api";
+import { createContext, type ActionDispatch } from "react";
+import type { SolveListAction } from "./interfaces/actions/SolveListAction";
+import { isSolve, type Solve } from "./interfaces/Solve";
 
-const updateSolveData = (currentState: Time, action: TimeAction) => {
+const updateTimeData = (currentState: Time, action: TimeAction) => {
     switch (action.type) {
         case "time":
             return { ...currentState, time: action.data as number };
@@ -27,15 +32,28 @@ const updateSolveData = (currentState: Time, action: TimeAction) => {
 const updateCategories = (currentState: Category[], action: CategoryAction) => {
     switch (action.type) {
         case "add": {
-            const x = currentState;
             if (isCategory(action.data)) {
-                x.push(action.data);
+                return [...currentState, action.data];
             }
-            return x;
+            return currentState;
         }
         case "remove":
             deleteCategory(action.data as string);
             return currentState.filter(item => item.categoryName != action.data);
+    }
+};
+
+const updateSolveList = (currentState: Solve[], action: SolveListAction) => {
+    switch (action.type) {
+        case "add": {
+            if (isSolve(action.data)) {
+                return [...currentState, action.data];
+            }
+            return currentState;
+        }
+        case "remove":
+            deleteSolve(action.data.id);
+            return currentState.filter(item => item.id != action.data.id);
     }
 };
 
@@ -78,4 +96,27 @@ const competitions = {
     "3x3 Multi-Blind": { scrambleType: "r3ni", scrambleLength: 5 },
 };
 
-export { updateSolveData, formatTimer, competitions, updateCategories };
+export const timeInitialState = {
+    time: 0,
+    date: 0,
+    scramble: "",
+    category: "",
+    puzzle: "",
+};
+
+const { status: categoriesStatus, result: categoriesResult } = await getAllCategories();
+export const categoriesInitialState = (categoriesStatus == Status.Success) ? categoriesResult as Category[] : [];
+
+const { status: solvesStatus, result: solvesResult } = await getAllSolves();
+export const solveListInitialState = (solvesStatus == Status.Success) ? solvesResult as Solve[] : [];
+
+export const TimeData = createContext<Time>(timeInitialState);
+export const SetTimeData = createContext<ActionDispatch<[action: TimeAction]>>(() => {});
+
+export const CategoryData = createContext<Category[]>(categoriesInitialState);
+export const SetCategoryData = createContext<ActionDispatch<[action: CategoryAction]>>(() => {});
+
+export const SolveListData = createContext<Solve[]>(solveListInitialState);
+export const SetSolveListData = createContext<ActionDispatch<[action: SolveListAction]>>(() => {});
+
+export { updateTimeData, formatTimer, competitions, updateCategories, updateSolveList };

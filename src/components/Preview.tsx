@@ -1,12 +1,12 @@
 import { useContext } from "react";
-import { SolveData } from "../app/providers";
+import { TimeData } from "../utils/data";
 import cstimer from "cstimer_module";
 import GlassBox from "./GlassBox";
 import Image from "next/image";
 
 export default function Preview() {
-    const solve = useContext(SolveData);
-    const img = cstimer.getImage(solve.scramble, solve.puzzle);
+    const time = useContext(TimeData);
+    const img = cstimer.getImage(time.scramble, time.puzzle);
     const imgData = btoa(img);
 
     return (
