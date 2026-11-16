@@ -27,7 +27,7 @@ const OtterIcon = () => {
 };
 
 const ThreeCubeIcon = () => {
-    return <FontAwesomeIcon icon={faTableCells} bounce widthAuto style={iconStyle} />;
+    return <FontAwesomeIcon icon={faTableCells} spinSnap4 widthAuto style={iconStyle} />;
 };
 
 const ArrowIcon = () => {
