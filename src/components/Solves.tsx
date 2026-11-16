@@ -1,8 +1,9 @@
 "use client";
 import { useContext, useEffect, useState, type ReactNode } from "react";
 import GlassBox from "./GlassBox";
-import SolveButton from "./parts/SolveButton";
+import SolveTableRow from "./parts/SolveTableRow";
 import { SolveListData, TimeData } from "../utils/data";
+import { Table } from "@heroui/react";
 
 export default function Solves() {
     const [children, setChildren] = useState<ReactNode[]>();
@@ -13,9 +14,11 @@ export default function Solves() {
         const f = () => {
             const timesList: ReactNode[] = [];
 
+            let c = 1;
             solveList.forEach((solve) => {
                 if (solve.category == currentTime.category) {
-                    timesList.push(<SolveButton solve={solve} key={solve.id} />);
+                    timesList.push(<SolveTableRow solve={solve} key={solve.id} number={c} />);
+                    c++;
                 }
             });
 
@@ -27,11 +30,21 @@ export default function Solves() {
 
     return (
         <GlassBox>
-            <h1>
-                Solves
-            </h1>
             <div className="grid grid-cols-1 gap-2 justify-items-center">
-                {children}
+                <Table>
+                    <Table.ScrollContainer>
+                        <Table.Content aria-label="Solves">
+                            <Table.Header>
+                                <Table.Column isRowHeader={true}>Number</Table.Column>
+                                <Table.Column>Time</Table.Column>
+                                <Table.Column></Table.Column>
+                            </Table.Header>
+                            <Table.Body>
+                                {children}
+                            </Table.Body>
+                        </Table.Content>
+                    </Table.ScrollContainer>
+                </Table>
             </div>
         </GlassBox>
     );

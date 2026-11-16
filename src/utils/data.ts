@@ -54,6 +54,15 @@ const updateSolveList = (currentState: Solve[], action: SolveListAction) => {
         case "remove":
             deleteSolve(action.data.id);
             return currentState.filter(item => item.id != action.data.id);
+        case "editSolve": {
+            if (!isSolve(action.data) && action.data.data) {
+                return [...currentState.filter(item => item.id != action.data.id), {
+                    ...currentState.find(solve => solve.id == action.data.id),
+                    ...action.data.data,
+                }];
+            }
+            return currentState;
+        }
     }
 };
 
@@ -88,6 +97,10 @@ const getMean = (times: Solve[]) => {
     });
 
     return c / times.length;
+};
+
+const getFormattedTime = (solve: Solve) => {
+    return formatTimer(getRealTime(solve)) + ((solve.plusTwo > 0) ? "+" : "");
 };
 
 /**
@@ -136,4 +149,4 @@ export const SetCategoryData = createContext<ActionDispatch<[action: CategoryAct
 export const SolveListData = createContext<Solve[]>(solveListInitialState);
 export const SetSolveListData = createContext<ActionDispatch<[action: SolveListAction]>>(() => {});
 
-export { updateTimeData, formatTimer, competitions, updateCategories, updateSolveList, getAoX, getMean };
+export { updateTimeData, formatTimer, competitions, updateCategories, updateSolveList, getAoX, getMean, getFormattedTime };

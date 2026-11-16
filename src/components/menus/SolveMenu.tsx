@@ -1,13 +1,27 @@
 import { type UseOverlayStateReturn, Button, Input, Modal, TextArea, ToggleButton } from "@heroui/react";
-import type { Solve } from "../../utils/interfaces/Solve";
+import { type Solve } from "../../utils/interfaces/Solve";
 import { ThreeCubeIcon } from "../icons/icons";
-import { formatTimer, SetSolveListData } from "../../utils/data";
-import { setDnf } from "../../utils/api";
+import { formatTimer, getFormattedTime, SetSolveListData } from "../../utils/data";
+import { setDnf, setPlusTwo } from "../../utils/api";
 import * as he from "he";
-import { useContext } from "react";
+import { useContext, useRef } from "react";
 
 export const SolveMenu = ({ modalState, solve }: { modalState: UseOverlayStateReturn, solve: Solve }) => {
     const setSolveListData = useContext(SetSolveListData);
+    const plusTwoInputRef = useRef<HTMLInputElement>(null);
+
+    const setPlusTwoLocal = (solve: Solve) => {
+        setPlusTwo(solve.id, Number(plusTwoInputRef.current?.value));
+        setSolveListData({
+            type: "editSolve",
+            data: {
+                id: solve.id,
+                data: {
+                    plusTwo: Number(plusTwoInputRef.current?.value),
+                },
+            },
+        });
+    };
 
     return (
         <Modal state={modalState}>
@@ -21,12 +35,12 @@ export const SolveMenu = ({ modalState, solve }: { modalState: UseOverlayStateRe
                             </Modal.Icon>
                             <Modal.Heading>
                                 <b>
-                                    {`Solve${(solve.id) ? " " + solve.id : ""}: ${formatTimer(solve.time)} on ${new Date(solve.date).toLocaleDateString()}`}
+                                    {`Solve${(solve.id) ? " " + solve.id : ""}: ${getFormattedTime(solve)} on ${new Date(solve.date).toLocaleDateString()}`}
                                 </b>
                                 <br />
                                 {`Real Time: ${formatTimer(solve.time)}`}
                                 <br />
-                                {(solve.plusTwo > 0) ? `${solve.plusTwo} * +2` : ""}
+                                {((solve.plusTwo > 0) ? `+${solve.plusTwo} * 2 seconds` : "")}
                                 <br />
                                 {(solve.dnf) ? "DNF" : ""}
                             </Modal.Heading>
@@ -34,15 +48,26 @@ export const SolveMenu = ({ modalState, solve }: { modalState: UseOverlayStateRe
                         <Modal.Body className="grid grid-cols-4 gap-3">
                             <Input fullWidth className="col-span-full" defaultValue={he.decode(solve.scramble)}>
                             </Input>
-                            <Input type="number" fullWidth>
+                            <Input type="number" min={0} max={9} fullWidth ref={plusTwoInputRef} defaultValue={solve.plusTwo}>
                             </Input>
-                            <Button fullWidth>
+                            <Button
+                                fullWidth
+                                onPress={() => setPlusTwoLocal(solve)}
+                            >
                                 Set Plus Two
                             </Button>
                             <ToggleButton
                                 defaultSelected={solve.dnf}
                                 onPress={() => {
-                                    // solve.dnf = !solve.dnf;
+                                    setSolveListData({
+                                        type: "editSolve",
+                                        data: {
+                                            id: solve.id,
+                                            data: {
+                                                dnf: !solve.dnf,
+                                            },
+                                        },
+                                    });
                                     setDnf(solve.id, !solve.dnf);
                                 }}
                                 className="w-full"
