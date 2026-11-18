@@ -55,9 +55,10 @@ const updateSolveList = (currentState: Solve[], action: SolveListAction) => {
             deleteSolve(action.data.id);
             return currentState.filter(item => item.id != action.data.id);
         case "editSolve": {
-            if (!isSolve(action.data) && action.data.data) {
+            const x = currentState.find(solve => solve.id == action.data.id);
+            if (!isSolve(action.data) && action.data.data && x) {
                 return [...currentState.filter(item => item.id != action.data.id), {
-                    ...currentState.find(solve => solve.id == action.data.id),
+                    ...x,
                     ...action.data.data,
                 }];
             }
