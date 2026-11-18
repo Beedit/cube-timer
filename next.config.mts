@@ -5,7 +5,7 @@ const internalHost = process.env.TAURI_DEV_HOST || "localhost";
 const nextConfig = {
     pageExtensions: ["js", "jsx", "ts", "tsx"],
     typescript: {
-        ignoreBuildErrors: true,
+        ignoreBuildErrors: !isProd,
     },
     output: "export",
     images: {
