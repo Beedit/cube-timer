@@ -22,6 +22,7 @@ const submit = async (time: number, date: number, category: string, scramble: st
         } else {
             return {
                 status: Status.Fail,
+                result: response.data.result,
             } as Result;
         }
     }).catch((error) => {
@@ -42,6 +43,7 @@ const getSolveByID = async (id: string) => {
         } else {
             return {
                 status: Status.Fail,
+                result: response.data.result,
             } as Result;
         }
     }).catch((error) => {
@@ -64,6 +66,7 @@ const setPlusTwo = async (id: number, count: number) => {
         } else {
             return {
                 status: Status.Fail,
+                result: response.data.result,
             } as Result;
         }
     }).catch((error) => {
@@ -86,6 +89,7 @@ const setDnf = async (id: number, dnf: boolean) => {
         } else {
             return {
                 status: Status.Fail,
+                result: response.data.result,
             } as Result;
         }
     }).catch((error) => {
@@ -108,6 +112,7 @@ const setNote = async (id: number, note: string) => {
         } else {
             return {
                 status: Status.Fail,
+                result: response.data.result,
             } as Result;
         }
     }).catch((error) => {
@@ -130,6 +135,7 @@ const setScramble = async (id: number, scramble: string) => {
         } else {
             return {
                 status: Status.Fail,
+                result: response.data.result,
             } as Result;
         }
     }).catch((error) => {
@@ -153,6 +159,7 @@ const deleteSolve = async (id: number) => {
         } else {
             return {
                 status: Status.Fail,
+                result: response.data.result,
             } as Result;
         }
     }).catch((error) => {
@@ -176,6 +183,7 @@ const deleteCategory = async (category: string) => {
         } else {
             return {
                 status: Status.Fail,
+                result: response.data.result,
             } as Result;
         }
     }).catch((error) => {
@@ -196,6 +204,7 @@ const getAllSolves = async () => {
         }
         return {
             status: Status.Fail,
+            result: response.data.result,
         } as Result;
     }).catch((error) => {
         return {
@@ -215,6 +224,7 @@ const getAllCategories = async () => {
         }
         return {
             status: Status.Fail,
+            result: response.data.result,
         } as Result;
     }).catch((error) => {
         return {
