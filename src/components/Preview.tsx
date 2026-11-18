@@ -11,8 +11,8 @@ export default function Preview() {
 
     return (
         <GlassBox>
-            <div className="flex flex-1 place-content-center h-full w-full">
-                <Image width="50" height="50" alt="" src={"data:image/svg+xml;base64," + imgData} className="w-auto h-full object-cover" />
+            <div className="flex flex-1 w-full h-full place-content-center">
+                <Image width="50" height="50" alt="" src={"data:image/svg+xml;base64," + imgData} className="object-cover w-auto h-full" />
             </div>
         </GlassBox>
     );

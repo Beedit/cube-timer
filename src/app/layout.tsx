@@ -26,8 +26,8 @@ export default function RootLayout({
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/highlight.min.js" async />
             </head>
             <Providers>
-                <body className="h-screen w-screen relative overflow-hidden">
-                    <div className="background absolute" />
+                <body className="relative w-screen h-screen overflow-hidden">
+                    <div className="absolute background" />
                     <main className="">
                         {children}
                     </main>
