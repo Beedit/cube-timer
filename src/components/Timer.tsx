@@ -5,6 +5,7 @@ import { getSolveByID, submit } from "../utils/api";
 import { formatTimer, SetSolveListData, SetTimeData, TimeData } from "../utils/data";
 import { Status } from "../utils/enums/Status";
 import { isSolve } from "../utils/interfaces/Solve";
+import { toast } from "@heroui/react";
 
 export default function Timer() {
     const timeData = useContext(TimeData);
@@ -40,6 +41,8 @@ export default function Timer() {
                     data: solve.result,
                 });
             }
+        } else {
+            toast(`Failed to submit solve because of ${solveID.result}`, { variant: "danger" });
         }
         setTimeData({
             type: "time",

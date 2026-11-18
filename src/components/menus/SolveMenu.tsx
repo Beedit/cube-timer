@@ -1,30 +1,48 @@
-import { type UseOverlayStateReturn, Button, Input, Modal, TextArea, ToggleButton } from "@heroui/react";
+import { type UseOverlayStateReturn, Button, Input, Modal, TextArea, toast, ToggleButton } from "@heroui/react";
 import { type Solve } from "../../utils/interfaces/Solve";
 import { ThreeCubeIcon } from "../icons/icons";
 import { formatTimer, getFormattedTime, SetSolveListData } from "../../utils/data";
-import { setDnf, setPlusTwo } from "../../utils/api";
+import { setDnf, setNote, setPlusTwo, setScramble } from "../../utils/api";
 import * as he from "he";
 import { useContext, useRef } from "react";
+import { Status } from "../../utils/enums/Status";
 
 export const SolveMenu = ({ modalState, solve }: { modalState: UseOverlayStateReturn, solve: Solve }) => {
     const setSolveListData = useContext(SetSolveListData);
     const plusTwoInputRef = useRef<HTMLInputElement>(null);
+    const scrambleInputRef = useRef<HTMLInputElement>(null);
+    const noteInputRef = useRef<HTMLTextAreaElement>(null);
 
-    const setPlusTwoLocal = (solve: Solve) => {
-        setPlusTwo(solve.id, Number(plusTwoInputRef.current?.value));
-        setSolveListData({
-            type: "editSolve",
-            data: {
-                id: solve.id,
+    const updateSolve = async (solve: Solve) => {
+        const p2res = await setPlusTwo(solve.id, Number(plusTwoInputRef.current?.value));
+        const nres = await setNote(solve.id, String(noteInputRef.current?.value));
+        const sres = await setScramble(solve.id, String(scrambleInputRef.current?.value));
+        if (p2res.status == Status.Success && nres.status == Status.Success && sres.status == Status.Success) {
+            setSolveListData({
+                type: "editSolve",
                 data: {
-                    plusTwo: Number(plusTwoInputRef.current?.value),
+                    id: solve.id,
+                    data: {
+                        plusTwo: Number(plusTwoInputRef.current?.value),
+                        note: String(noteInputRef.current?.value),
+                        scramble: String(scrambleInputRef.current?.value),
+                    },
                 },
-            },
-        });
+            });
+        } else {
+            toast("Failed to save solve information. Please try again", { variant: "danger" });
+        }
     };
 
     return (
-        <Modal state={modalState}>
+        <Modal
+            state={modalState}
+            onOpenChange={(isOpen: boolean) => {
+                if (!isOpen) {
+                    updateSolve(solve);
+                }
+            }}
+        >
             <Modal.Backdrop>
                 <Modal.Container size="lg">
                     <Modal.Dialog>
@@ -45,17 +63,11 @@ export const SolveMenu = ({ modalState, solve }: { modalState: UseOverlayStateRe
                                 {(solve.dnf) ? "DNF" : ""}
                             </Modal.Heading>
                         </Modal.Header>
-                        <Modal.Body className="grid grid-cols-4 gap-3">
-                            <Input fullWidth className="col-span-full" defaultValue={he.decode(solve.scramble)}>
+                        <Modal.Body className="grid grid-cols-3 gap-3">
+                            <Input fullWidth className="col-span-full" defaultValue={he.decode(solve.scramble)} variant="secondary" ref={scrambleInputRef}>
                             </Input>
-                            <Input type="number" min={0} max={9} fullWidth ref={plusTwoInputRef} defaultValue={solve.plusTwo}>
+                            <Input type="number" min={0} max={9} fullWidth ref={plusTwoInputRef} defaultValue={solve.plusTwo} variant="secondary">
                             </Input>
-                            <Button
-                                fullWidth
-                                onPress={() => setPlusTwoLocal(solve)}
-                            >
-                                Set Plus Two
-                            </Button>
                             <ToggleButton
                                 defaultSelected={solve.dnf}
                                 onPress={() => {
@@ -87,7 +99,7 @@ export const SolveMenu = ({ modalState, solve }: { modalState: UseOverlayStateRe
                             >
                                 Delete
                             </Button>
-                            <TextArea defaultValue={solve.note} className="col-span-full" />
+                            <TextArea defaultValue={solve.note} className="col-span-full" variant="secondary" ref={noteInputRef} />
                         </Modal.Body>
                         <Modal.Footer />
                     </Modal.Dialog>
