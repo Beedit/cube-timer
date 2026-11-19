@@ -1,5 +1,3 @@
-"use client";
-
 import axios from "axios";
 import { getSetting } from "./config";
 import type { Result } from "./interfaces/Result";

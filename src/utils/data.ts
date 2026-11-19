@@ -1,4 +1,3 @@
-"use client";
 import type { TimeAction } from "./interfaces/actions/TimeAction";
 import cstimer from "cstimer_module";
 import type { Time } from "./interfaces/Time";
