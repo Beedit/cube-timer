@@ -251,4 +251,29 @@ const checkCompatability = async () => {
     });
 };
 
-export { submit, setPlusTwo, setDnf, setNote, setScramble, deleteSolve, getAllSolves, getAllCategories, deleteCategory, getSolveByID, checkCompatability };
+const newCategory = async (category: string, puzzle: string, scrambleLength: number) => {
+    return await axios.post(await getSetting("server") + "/category", {
+        category,
+        puzzle,
+        scrambleLength,
+    }).then((response) => {
+        if (response.data.success) {
+            return {
+                status: Status.Success,
+                result: response.data.result as number,
+            } as Result;
+        } else {
+            return {
+                status: Status.Fail,
+                result: response.data.result,
+            } as Result;
+        }
+    }).catch((error) => {
+        return {
+            status: Status.Fail,
+            result: error,
+        } as Result;
+    });
+};
+
+export { submit, setPlusTwo, setDnf, setNote, setScramble, deleteSolve, getAllSolves, getAllCategories, deleteCategory, getSolveByID, checkCompatability, newCategory };

@@ -1,8 +1,11 @@
-import { Modal, type UseOverlayStateReturn } from "@heroui/react";
+import { Button, Modal, useOverlayState, type UseOverlayStateReturn } from "@heroui/react";
 import { CogIcon } from "../icons/icons";
 import CategoryTable from "../parts/CategoryTable";
+import { AddCategoryModal } from "./AddCategoryModal";
 
 export const ManageCategoriesModal = ({ modalState }: { modalState: UseOverlayStateReturn }) => {
+    const newCategoryModalState = useOverlayState({});
+
     return (
         <Modal.Backdrop
             isOpen={modalState.isOpen}
@@ -22,6 +25,10 @@ export const ManageCategoriesModal = ({ modalState }: { modalState: UseOverlaySt
                     <Modal.Body>
                         <div className="grid grid-cols-1 gap-3">
                             <CategoryTable />
+                            <Button onPress={newCategoryModalState.open}>
+                                New Category
+                            </Button>
+                            <AddCategoryModal modalState={newCategoryModalState} />
                         </div>
                     </Modal.Body>
                     <Modal.Footer />
