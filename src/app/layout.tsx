@@ -6,7 +6,6 @@ import "@fortawesome/fontawesome-svg-core/styles.css";
 config.autoAddCss = false;
 
 import favicon from "../public/image/favicon.ico";
-import { Providers } from "./providers";
 
 export const metadata: Metadata = {
     title: "Pip's Site",
@@ -25,14 +24,12 @@ export default function RootLayout({
             <head>
                 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.12.0/highlight.min.js" async />
             </head>
-            <Providers>
-                <body className="relative w-screen h-screen overflow-hidden">
-                    <div className="absolute background" />
-                    <main className="">
-                        {children}
-                    </main>
-                </body>
-            </Providers>
+            <body className="relative w-screen h-screen overflow-hidden">
+                <div className="absolute background" />
+                <main className="">
+                    {children}
+                </main>
+            </body>
         </html>
     );
 }

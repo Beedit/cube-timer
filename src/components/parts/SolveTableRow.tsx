@@ -8,20 +8,18 @@ import { getFormattedTime } from "../../utils/data";
 export default function SolveTableRow({ solve, number }: { solve: Solve, number: number }) {
     const modalState = useOverlayState();
     return (
-        <>
-            <Table.Row>
-                <Table.Cell>{number}</Table.Cell>
-                <Table.Cell>{getFormattedTime(solve)}</Table.Cell>
-                <Table.Cell>
-                    <Button onPress={() => {
-                        modalState.setOpen(true);
-                    }}
-                    >
-                        <EditIcon />
-                    </Button>
-                    <SolveMenu modalState={modalState} solve={solve} />
-                </Table.Cell>
-            </Table.Row>
-        </>
+        <Table.Row>
+            <Table.Cell>{number}</Table.Cell>
+            <Table.Cell>{getFormattedTime(solve)}</Table.Cell>
+            <Table.Cell>
+                <Button onPress={() => {
+                    modalState.setOpen(true);
+                }}
+                >
+                    <EditIcon />
+                </Button>
+                <SolveMenu modalState={modalState} solve={solve} />
+            </Table.Cell>
+        </Table.Row>
     );
 }

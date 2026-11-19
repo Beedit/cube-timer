@@ -63,7 +63,7 @@ export default function CategoryDropdown() {
                 </Dropdown.Popover>
             </Dropdown>
 
-            <ManageCategoriesModal disclosure={modalState} />
+            <ManageCategoriesModal modalState={modalState} />
         </>
     );
 }

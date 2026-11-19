@@ -13,6 +13,7 @@ import { getSetting } from "../utils/config";
 import { checkCompatability } from "../utils/api";
 import { Status } from "../utils/enums/Status";
 import { toast } from "@heroui/react";
+import { Providers } from "./providers";
 
 export default function Page() {
     const { setTheme } = useTheme();
@@ -29,7 +30,7 @@ export default function Page() {
     }, [setTheme]);
 
     return (
-        <>
+        <Providers>
             <div className="grid gap-4 w-screen h-screen p-7.5 grid-cols-5 grid-rows-9 md:grid-cols-9">
                 <div className="col-span-3 col-start-2 md:col-start-4"><Scramble /></div>
                 <div className="col-span-3 col-start-2 row-span-3 row-start-3 md:col-start-4"><Timer /></div>
@@ -38,6 +39,6 @@ export default function Page() {
                 <div className="hidden col-span-2 col-start-8 row-span-3 row-start-7 md:block"><Settings /></div>
                 <div className="hidden col-span-2 col-start-1 row-start-1 row-span-9 md:block"><Solves /></div>
             </div>
-        </>
+        </Providers>
     );
 }
