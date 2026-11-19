@@ -19,8 +19,8 @@ export const SettingsModal = ({ modalState, server, serverContent }: { modalStat
                         </Modal.Header>
                         <Modal.Body>
                             <div className="grid grid-cols-1 gap-3">
-                                <Label>Server URL</Label>
-                                <Input placeholder="https://localhost:5000" ref={server} defaultValue={serverContent}></Input>
+                                <Label isRequired={true}>Server URL</Label>
+                                <Input placeholder="https://localhost:5000" ref={server} defaultValue={serverContent} variant="secondary" />
                                 <Label>Default Category</Label>
                                 <DefaultCategoryDropdown />
                                 <Label>Theme</Label>
