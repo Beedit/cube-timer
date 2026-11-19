@@ -12,5 +12,24 @@
             },
             "theme": "system"
         }
-    }
+    },
+    "competitions": [
+    { "name": "2x2", "scrambleType": "222so", "scrambleLength": 0 },
+    { "name": "3x3", "scrambleType": "333", "scrambleLength": 0 },
+    { "name": "4x4", "scrambleType": "444wca", "scrambleLength": -40 },
+    { "name": "5x5", "scrambleType": "555wca", "scrambleLength": -60 },
+    { "name": "6x6", "scrambleType": "666wca", "scrambleLength": -80 },
+    { "name": "7x7", "scrambleType": "777wca", "scrambleLength": -100 },
+    { "name": "3x3 Blind", "scrambleType": "333ni", "scrambleLength": 0 },
+    { "name": "3x3 One Handed", "scrambleType": "333oh", "scrambleLength": 0 },
+    { "name": "Clock", "scrambleType": "clkwca", "scrambleLength": 0 },
+    { "name": "Megaminx", "scrambleType": "mgmp", "scrambleLength": -70 },
+    { "name": "Pyraminx", "scrambleType": "pyrso", "scrambleLength": -10 },
+    { "name": "Skewb", "scrambleType": "skbso", "scrambleLength": 0 },
+    { "name": "Face Turning Octahedron", "scrambleType": "ftoso", "scrambleLength": 0 },
+    { "name": "Square-1", "scrambleType": "sqrs", "scrambleLength": 0 },
+    { "name": "4x4 Blind", "scrambleType": "444bld", "scrambleLength": -40 },
+    { "name": "5x5 Blind", "scrambleType": "555bld", "scrambleLength": -60 },
+    { "name": "3x3 Multi-Blind", "scrambleType": "r3ni", "scrambleLength": 5 }
+    ]
 }

@@ -103,29 +103,6 @@ const getFormattedTime = (solve: Solve) => {
     return formatTimer(getRealTime(solve)) + ((solve.plusTwo > 0) ? "+" : "");
 };
 
-/**
- * A list of the default competitions
- */
-const competitions = {
-    "2x2": { scrambleType: "222so", scrambleLength: 0 },
-    "3x3": { scrambleType: "333", scrambleLength: 0 },
-    "4x4": { scrambleType: "444wca", scrambleLength: -40 },
-    "5x5": { scrambleType: "555wca", scrambleLength: -60 },
-    "6x6": { scrambleType: "666wca", scrambleLength: -80 },
-    "7x7": { scrambleType: "777wca", scrambleLength: -100 },
-    "3x3 Blind": { scrambleType: "333ni", scrambleLength: 0 },
-    "3x3 One Handed": { scrambleType: "333oh", scrambleLength: 0 },
-    "Clock": { scrambleType: "clkwca", scrambleLength: 0 },
-    "Megaminx": { scrambleType: "mgmp", scrambleLength: -70 },
-    "Pyraminx": { scrambleType: "pyrso", scrambleLength: -10 },
-    "Skewb": { scrambleType: "skbso", scrambleLength: 0 },
-    "Face Turning Octahedron": { scrambleType: "ftoso", scrambleLength: 0 },
-    "Square-1": { scrambleType: "sqrs", scrambleLength: 0 },
-    "4x4 Blind": { scrambleType: "444bld", scrambleLength: -40 },
-    "5x5 Blind": { scrambleType: "555bld", scrambleLength: -60 },
-    "3x3 Multi-Blind": { scrambleType: "r3ni", scrambleLength: 5 },
-};
-
 export const timeInitialState = {
     time: 0,
     date: 0,
@@ -149,4 +126,4 @@ export const SetCategoryData = createContext<ActionDispatch<[action: CategoryAct
 export const SolveListData = createContext<Solve[]>(solveListInitialState);
 export const SetSolveListData = createContext<ActionDispatch<[action: SolveListAction]>>(() => {});
 
-export { updateTimeData, formatTimer, competitions, updateCategories, updateSolveList, getAoX, getMean, getFormattedTime };
+export { updateTimeData, formatTimer, updateCategories, updateSolveList, getAoX, getMean, getFormattedTime };
