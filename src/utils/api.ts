@@ -6,6 +6,7 @@ import type { Result } from "./interfaces/Result";
 import { Status } from "./enums/Status";
 import type { Category } from "./interfaces/Category";
 import type { Solve } from "./interfaces/Solve";
+import data from "../data/data.json";
 
 const submit = async (time: number, date: number, category: string, scramble: string) => {
     return await axios.post(await getSetting("server") + "/solve", {
@@ -234,4 +235,22 @@ const getAllCategories = async () => {
     });
 };
 
-export { submit, setPlusTwo, setDnf, setNote, setScramble, deleteSolve, getAllSolves, getAllCategories, deleteCategory, getSolveByID };
+const checkCompatability = async () => {
+    return await axios.get(await getSetting("server") + "/version").then((response) => {
+        if (response.status == 200 && response.data.result.name == data.apiName && data.versions.includes(response.data.result.version)) {
+            return {
+                status: Status.Success,
+            } as Result;
+        }
+        return {
+            status: Status.Fail,
+        } as Result;
+    }).catch((error) => {
+        return {
+            status: Status.Fail,
+            result: error,
+        } as Result;
+    });
+};
+
+export { submit, setPlusTwo, setDnf, setNote, setScramble, deleteSolve, getAllSolves, getAllCategories, deleteCategory, getSolveByID, checkCompatability };

@@ -2,6 +2,7 @@
 import { ThemeProvider as NextThemesProvider } from "next-themes";
 import { useReducer } from "react";
 import { updateSolveList, categoriesInitialState, CategoryData, SetCategoryData, SetSolveListData, SetTimeData, SolveListData, solveListInitialState, TimeData, timeInitialState, updateCategories, updateTimeData } from "../utils/data";
+import { Toast } from "@heroui/react";
 
 export function Providers({ children }: { children: React.ReactNode }) {
     const [currentSolveData, setSolveData] = useReducer(updateTimeData, timeInitialState);
@@ -15,6 +16,7 @@ export function Providers({ children }: { children: React.ReactNode }) {
             enableSystem
             disableTransitionOnChange
         >
+            <Toast.Provider />
             <TimeData value={currentSolveData}>
                 <SetTimeData value={setSolveData}>
                     <CategoryData value={categoryData}>
