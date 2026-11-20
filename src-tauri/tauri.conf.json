@@ -1,22 +1,20 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "cube-timer",
+  "productName": "Piptime",
   "version": "0.1.0",
-  "identifier": "ws.gaypa.timer",
+  "identifier": "ws.gaypa.piptime",
   "build": {
-    "frontendDist": "../out",
-    "devUrl": "http://localhost:3000",
     "beforeDevCommand": "npm run nextdev",
-    "beforeBuildCommand": "npm run build"
+    "devUrl": "http://localhost:3000",
+    "beforeBuildCommand": "npm run build",
+    "frontendDist": "../out"
   },
   "app": {
     "windows": [
       {
         "title": "Piptime",
         "width": 800,
-        "height": 600,
-        "resizable": true,
-        "fullscreen": false
+        "height": 600
       }
     ],
     "security": {
@@ -32,9 +30,6 @@
       "icons/128x128@2x.png",
       "icons/icon.icns",
       "icons/icon.ico"
-    ],
-    "android": {
-      "debugApplicationIdSuffix": ".dev"
-    }
+    ]
   }
 }
